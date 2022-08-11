@@ -1,8 +1,9 @@
 import pygame
+
 # Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-PLAYER_SPEED = 0.3
+PLAYER_SPEED = 0.5
 PLAYER_SIZE = 64
 
 # test git IDB Laptop
@@ -15,12 +16,18 @@ pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 playerImg = pygame.image.load("media/img/spaceship.png")
-playerX = SCREEN_WIDTH/2 - PLAYER_SIZE/2
+playerX = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
 playerY = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
 playerChange = 0
 
+
 def player(x, y):
     screen.blit(playerImg, (x, y))
+
+
+def player_get_position(x, change):
+    position = min(max(0, x + change), SCREEN_WIDTH)
+    return position
 
 
 # Game loop
@@ -43,9 +50,8 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerChange = PLAYER_SPEED
 
-
     # Render Screen
     screen.fill((255, 255, 255))
-    playerX += playerChange
+    playerX = player_get_position(playerX, playerChange)
     player(playerX, playerY)
     pygame.display.update()
