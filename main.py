@@ -1,5 +1,5 @@
 import pygame
-
+# test git IDB Laptop
 # Initialize game
 pygame.init()
 icon = pygame.image.load("media/img/ico.png")
