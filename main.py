@@ -6,7 +6,6 @@ SCREEN_HEIGHT = 600
 PLAYER_SPEED = 0.5
 PLAYER_SIZE = 64
 
-# test git IDB Laptop
 # Initialize game
 pygame.init()
 icon = pygame.image.load("media/img/ico.png")
@@ -15,6 +14,7 @@ pygame.display.set_caption("Space Invaders")
 pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# Player
 playerImg = pygame.image.load("media/img/spaceship.png")
 playerX = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
 playerY = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
