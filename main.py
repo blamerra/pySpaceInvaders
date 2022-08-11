@@ -1,7 +1,21 @@
-# This is a sample Python script.
+import pygame
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Initialize game
+pygame.init()
+icon = pygame.image.load("media/img/ico.png")
+pygame.display.set_icon(icon)
+pygame.display.set_caption("Space Invaders")
+pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
+screen = pygame.display.set_mode((800, 600))
+
+# Game loop
+running = 1
+while running:
+    # Event loop
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = 0
+
 
 
 def print_hi(name):
