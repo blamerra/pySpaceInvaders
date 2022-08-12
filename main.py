@@ -1,5 +1,25 @@
 import pygame
 
+
+class Asset:
+    def __init__(self, game, scr):
+        self.pygame = game
+        self.img = None
+        self.x = 0
+        self.y = 0
+        self.change = 0
+        self.screen = scr
+        self.speed = 0.5
+        self.width = 64
+        self.height = 64
+
+    def load_image(self, image_name):
+        self.img = pygame.image.load(image_name)
+
+    def render(self):
+        screen.blit(playerImg, (self.x, self.y))
+
+
 # Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -19,6 +39,12 @@ playerImg = pygame.image.load("media/img/spaceship.png")
 playerX = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
 playerY = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
 playerChange = 0
+
+# Player Class
+player = Asset(pygame, screen)
+player.x = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
+player.y = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
+player.load_image("media/img/spaceship.png")
 
 
 def player(x, y):
