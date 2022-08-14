@@ -28,11 +28,15 @@ PLAYER_SIZE = 64
 
 # Initialize game
 pygame.init()
+pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
+
+# Screen
 icon = pygame.image.load("media/img/ico.png")
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Space Invaders")
-pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+background = pygame.image.load("media/img/background.png").convert()
+screen.blit(background, (0, 0))
 
 # Player
 playerImg = pygame.image.load("media/img/spaceship.png")
@@ -77,7 +81,7 @@ while running:
                 playerChange = PLAYER_SPEED
 
     # Render Screen
-    screen.fill((255, 255, 255))
+    screen.blit(background, (0, 0))
     playerX = player_get_position(playerX, playerChange)
     player(playerX, playerY)
     pygame.display.update()
