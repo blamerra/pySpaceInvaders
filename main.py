@@ -30,22 +30,25 @@ class Rectangle(pygame.sprite.Sprite):
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
-        # Heredamos el init de la clase Sprite de Pygame
         super().__init__()
-        self.image = pygame.image.load(IMAGE_PLAYER).convert()
-
-        # Obtiene el rectángulo (sprite)
+        self.image = pygame.image.load(PLAYER_IMAGE)
         self.rect = self.image.get_rect()
-        # Centra el rectángulo (sprite)
-        self.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        self.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT - SCREEN_HEIGHT * 0.1)
 
     def right(self):
-        self.rect.x += PLAYER_SPEED
-    def left(self):
-        self.rect.x += PLAYER_SPEED
-    def update(self):
-        pass
+        if self.rect.x < SCREEN_WIDTH - self.rect.width:
+            self.rect.x += PLAYER_SPEED
 
+    def left(self):
+        if self.rect.x > 0:
+            self.rect.x -= PLAYER_SPEED
+
+    def update(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.left()
+        elif keys[pygame.K_RIGHT]:
+            self.right()
 
 
 class Asset:
@@ -72,8 +75,9 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 PLAYER_SPEED = 10
 PLAYER_SIZE = 64
+PLAYER_IMAGE = "media/img/spaceship.png"
 FPS = 60
-IMAGE_PLAYER = "media/img/spaceship.png"
+
 
 # Initialize game
 pygame.init()
@@ -138,19 +142,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = 0
+        '''
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             playerChange = -PLAYER_SPEED
-            player.Player.left()
+            player.left()
             #player.rect.x += -PLAYER_SPEED
         elif keys[pygame.K_RIGHT]:
             playerChange = PLAYER_SPEED
-            player.Player.right()
+            player.right()
             #player.rect.x += PLAYER_SPEED
         else:
             playerChange = 0
-        '''
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or pygame.K_LEFT:
                 
