@@ -1,4 +1,51 @@
+# assets and original game
+# https://github.com/attreyabhatt/Space-Invaders-Pygame
+
+# Tutorial Mundo Python
+# https://www.youtube.com/watch?v=MY9Jbri3wnE
+# https://github.com/mundo-python/pygame-Scripts/blob/master/17_game_over.py
+
 import pygame
+
+
+# Sprites test
+class Rectangle(pygame.sprite.Sprite):
+    def __init__(self):
+        # Heredamos el init de la clase Sprite de Pygame
+        super().__init__()
+        # Rectángulo (jugador)
+        self.image = pygame.Surface((200, 200))
+        self.image.fill((0, 0, 0))
+        # Obtiene el rectángulo (sprite)
+        self.rect = self.image.get_rect()
+        # Centra el rectángulo (sprite)
+        self.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+    def update(self):
+        # Actualiza esto cada vuelta de bucle.
+        self.rect.y += 10
+        if self.rect.top > SCREEN_HEIGHT:
+            self.rect.bottom = 0
+
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        # Heredamos el init de la clase Sprite de Pygame
+        super().__init__()
+        self.image = pygame.image.load(IMAGE_PLAYER).convert()
+
+        # Obtiene el rectángulo (sprite)
+        self.rect = self.image.get_rect()
+        # Centra el rectángulo (sprite)
+        self.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+    def right(self):
+        self.rect.x += PLAYER_SPEED
+    def left(self):
+        self.rect.x += PLAYER_SPEED
+    def update(self):
+        pass
+
 
 
 class Asset:
@@ -23,8 +70,10 @@ class Asset:
 # Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-PLAYER_SPEED = 0.5
+PLAYER_SPEED = 10
 PLAYER_SIZE = 64
+FPS = 60
+IMAGE_PLAYER = "media/img/spaceship.png"
 
 # Initialize game
 pygame.init()
@@ -38,17 +87,38 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 background = pygame.image.load("media/img/background.png").convert()
 screen.blit(background, (0, 0))
 
+# Music
+pygame.mixer.music.load("media/sound/background.wav")
+pygame.mixer.music.play(-1)
+
+# FPS control
+clock = pygame.time.Clock()
+
+
+def update_fps():
+    font = pygame.font.SysFont("Arial", 18)
+    fps = str(int(clock.get_fps()))
+    fps_text = font.render(fps, True, pygame.Color("coral"))
+    return fps_text
+
+
 # Player
 playerImg = pygame.image.load("media/img/spaceship.png")
 playerX = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
 playerY = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
 playerChange = 0
 
-# Player Class
+# Sprites creation
+player = Player()
+# rectangle = Rectangle()
+sprites = pygame.sprite.Group()
+sprites.add(player)
+'''
 player = Asset(pygame, screen)
 player.x = SCREEN_WIDTH / 2 - PLAYER_SIZE / 2
 player.y = SCREEN_HEIGHT - PLAYER_SIZE - SCREEN_HEIGHT * 0.1
 player.load_image("media/img/spaceship.png")
+'''
 
 
 def player(x, y):
@@ -69,19 +139,35 @@ while running:
         if event.type == pygame.QUIT:
             running = 0
 
-        # TODO Controlar evento key up si se pulsa la otra direccion muy rapido
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            playerChange = -PLAYER_SPEED
+            player.Player.left()
+            #player.rect.x += -PLAYER_SPEED
+        elif keys[pygame.K_RIGHT]:
+            playerChange = PLAYER_SPEED
+            player.Player.right()
+            #player.rect.x += PLAYER_SPEED
+        else:
+            playerChange = 0
+        '''
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or pygame.K_LEFT:
-                playerChange = 0
+                
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 playerChange = -PLAYER_SPEED
             if event.key == pygame.K_RIGHT:
                 playerChange = PLAYER_SPEED
-
+        '''
     # Render Screen
     screen.blit(background, (0, 0))
+    # FPS
+    clock.tick(FPS)
+    screen.blit(update_fps(), (10, 0))
     playerX = player_get_position(playerX, playerChange)
     player(playerX, playerY)
+    sprites.update()
+    sprites.draw(screen)
     pygame.display.update()
