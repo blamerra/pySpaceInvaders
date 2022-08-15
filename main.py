@@ -55,6 +55,25 @@ class Background(pygame.sprite.Sprite):
             self.rect.y += 1
 
 
+class Fps(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((20, 20))
+        self.rect = self.image.get_rect()
+        self.rect.center = (SCREEN_WIDTH - 10, 10)
+        self.clock = pygame.time.Clock()
+        self.font = pygame.font.SysFont("Arial", 18)
+        self.fps = None
+        self.fps_text = None
+
+    def update(self):
+        self.image.fill(pygame.Color("black"))
+
+        self.clock.tick(GAME_FPS)
+        self.fps = str(int(self.clock.get_fps()))
+        self.fps_text = self.font.render(self.fps, True, pygame.Color("coral"))
+        self.image.blit(self.fps_text, [0, 0])
+
 
 # Constants
 SCREEN_WIDTH = 800
@@ -91,22 +110,13 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # pygame.mixer.music.load(SCREEN_BACKGROUND_MUSIC)
 # pygame.mixer.music.play(-1)
 
-# FPS control
-game_clock = pygame.time.Clock()
-
-
-def update_fps():
-    font = pygame.font.SysFont("Arial", 18)
-    fps = str(int(game_clock.get_fps()))
-    fps_text = font.render(fps, True, pygame.Color("coral"))
-    return fps_text
-
 
 # Sprites creation
 player = Player()
 background = Background()
+fps = Fps()
 sprites = pygame.sprite.Group()
-sprites.add(background, player)
+sprites.add(background, player, fps)
 
 # Game loop
 running = 1
@@ -118,15 +128,8 @@ while running:
             running = 0
 
     # Render Screen
-    #screen.blit(background, (0, 0))
-    # FPS
-    game_clock.tick(GAME_FPS)
-    screen.blit(update_fps(), (10, 0))
-
     sprites.update()
     sprites.draw(screen)
     pygame.display.update()
-    # TODO mirar para que sirve .flip()
-    pygame.display.flip()
 
 pygame.quit()
