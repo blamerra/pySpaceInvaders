@@ -2,7 +2,7 @@ import pygame
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 640
-IMAGE_PLAYER = 'ico_ufo.png'
+IMAGE_PLAYER = 'media/img/alien.png'
 PLAYER_SPEED = 5
 
 class Player(pygame.sprite.Sprite):
