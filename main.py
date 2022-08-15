@@ -42,17 +42,19 @@ class Player(pygame.sprite.Sprite):
         elif keys[pygame.K_DOWN]:
             self.move_down()
 
-
 class Background(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load(BACKGROUND_IMAGE).convert()
         self.rect = self.image.get_rect()
-        self.rect.topleft = [0, 0]
+        self.rect.topleft = [0, -SCREEN_HEIGHT]
 
     def update(self):
-        if BACKGROUND_MOVE:
-            self.rect.y += 1
+        if BACKGROUND_SCROLL:
+            if self.rect.y < 0:
+                self.rect.y += 1
+            else:
+                self.rect.y = -SCREEN_HEIGHT
 
 
 class Fps(pygame.sprite.Sprite):
@@ -81,13 +83,13 @@ SCREEN_HEIGHT = 600
 SCREEN_ICON = "media/img/ico.png"
 SCREEN_TITLE = "Space Invaders"
 
-BACKGROUND_IMAGE = "media/img/background.png"
+BACKGROUND_IMAGE = "media/img/background_800x1200.png"
 BACKGROUND_MUSIC = "media/sound/background.wav"
-BACKGROUND_MOVE = False
+BACKGROUND_SCROLL = True
 
 PLAYER_SPEED = 10
 PLAYER_SIZE = 64
-PLAYER_VERTICAL_MOVE = False
+PLAYER_VERTICAL_MOVE = True
 PLAYER_IMAGE = "media/img/spaceship.png"
 
 GAME_FPS = 60
@@ -101,9 +103,6 @@ icon = pygame.image.load(SCREEN_ICON)
 pygame.display.set_icon(icon)
 pygame.display.set_caption(SCREEN_TITLE)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-# TODO crear un sprite para el background y moverlo
-# background = pygame.image.load(BACKGROUND_IMAGE).convert()
-# screen.blit(background, (0, 0))
 
 # Music
 # TODO descomentar musica
