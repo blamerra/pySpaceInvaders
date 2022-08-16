@@ -8,3 +8,9 @@
 
 ## Project structure
 - https://github.com/ehmatthes/pcc_2e/tree/master/chapter_13/creating_first_alien
+
+# Recursos
+## Iconos
+- https://www.flaticon.com/
+## Editor imagenes
+- https://www.photopea.com/

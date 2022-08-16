@@ -16,9 +16,11 @@ class Settings:
         self.screen_icon = "media/img/ico.png"
         self.screen_title = "Space Invaders"
 
+        # Audio
+        self.audio_background = "media/sound/background.wav"
+
         # Background
         self.background_image = "media/img/background_800x1200.png"
-        self.background_music = "media/sound/background.wav"
         self.background_scroll = True
         self.background_scroll_speed = 1
         self.shortcut_background_scroll_pause = pygame.K_b
@@ -28,13 +30,7 @@ class Settings:
         self.player_speed = 10
         self.player_vertical_move = True
 
-        '''
-        self.ship_speed = 1.5
-
         # Bullet settings
-        self.bullet_speed = 1.0
-        self.bullet_width = 3
-        self.bullet_height = 15
-        self.bullet_color = (60, 60, 60)
-        self.bullets_allowed = 3
-        '''
+        self.bullet_image = "media/img/bullet_laser.png"
+        self.bullet_speed = 15
+

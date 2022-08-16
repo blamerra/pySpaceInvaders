@@ -1,6 +1,7 @@
 import pygame
 from settings import Settings
 from sprites.background import Background
+from sprites.bullet import Bullet
 from sprites.player import Player
 from sprites.fps import Fps
 
@@ -18,15 +19,22 @@ class Game:
         pygame.display.set_caption(self.settings.screen_title)
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
+        # Fps
         self.clock = pygame.time.Clock()
 
         # Sprites creation
         self.player = Player()
+        self.bullet = Bullet()
         self.background = Background()
         self.fps = Fps()
         self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.background, self.player, self.fps)
+        self.sprites.add(self.background, self.bullet, self.player, self.fps)
 
+        # Audio
+        pygame.mixer.music.load(self.settings.audio_background)
+        pygame.mixer.music.play(-1)
+
+        # Main loop running variables
         self.running = 1
         self.pause = 0
 
@@ -48,12 +56,15 @@ class Game:
     def render_screen(self):
         # Render Screen
         if not self.pause:
+            pygame.mixer.music.unpause()
             self.clock.tick(self.settings.fps)
             self.fps.fps = str(int(self.clock.get_fps()))
 
             self.sprites.update()
             self.sprites.draw(self.screen)
             pygame.display.update()
+        else:
+            pygame.mixer.music.pause()
 
     def run(self):
         while self.running:
