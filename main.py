@@ -48,15 +48,22 @@ class Background(pygame.sprite.Sprite):
         self.image = pygame.image.load(BACKGROUND_IMAGE).convert()
         self.rect = self.image.get_rect()
         self.rect.topleft = [0, -SCREEN_HEIGHT]
+        self.scroll = BACKGROUND_SCROLL
+        self.speed = BACKGROUND_SPEED
 
     def update(self):
-        if BACKGROUND_SCROLL:
+        #keys = pygame.key.get_pressed()
+        #if keys[SHORTCUT_BACKGROUND_SCROLL_STOP]:
+        #    self.scroll = not self.scroll
+
+        if self.scroll:
             if self.rect.y < 0:
-                self.rect.y += 1
+                self.rect.y += BACKGROUND_SPEED
             else:
                 self.rect.y = -SCREEN_HEIGHT
 
-
+    def pause(self):
+        self.scroll = not self.scroll
 class Fps(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -86,6 +93,8 @@ SCREEN_TITLE = "Space Invaders"
 BACKGROUND_IMAGE = "media/img/background_800x1200.png"
 BACKGROUND_MUSIC = "media/sound/background.wav"
 BACKGROUND_SCROLL = True
+BACKGROUND_SPEED = 1
+SHORTCUT_BACKGROUND_SCROLL_STOP = pygame.K_b
 
 PLAYER_SPEED = 10
 PLAYER_SIZE = 64
@@ -93,6 +102,8 @@ PLAYER_VERTICAL_MOVE = True
 PLAYER_IMAGE = "media/img/spaceship.png"
 
 GAME_FPS = 60
+
+SHORTCUT_PAUSE = pygame.K_PAUSE
 
 # Initialize game
 pygame.init()
@@ -119,16 +130,23 @@ sprites.add(background, player, fps)
 
 # Game loop
 running = 1
+pause = 0
 while running:
 
     # Event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = 0
+        if event.type == pygame.KEYDOWN:
+            if event.key == SHORTCUT_PAUSE:
+                pause = not pause
+            if event.key == SHORTCUT_BACKGROUND_SCROLL_STOP:
+                background.pause()
 
     # Render Screen
-    sprites.update()
-    sprites.draw(screen)
-    pygame.display.update()
+    if not pause:
+        sprites.update()
+        sprites.draw(screen)
+        pygame.display.update()
 
 pygame.quit()
