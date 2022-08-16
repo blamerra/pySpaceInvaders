@@ -1,8 +1,8 @@
 import pygame
 from settings import Settings
-from background import Background
-from player import Player
-from fps import Fps
+from sprites.background import Background
+from sprites.player import Player
+from sprites.fps import Fps
 
 
 class Game:
