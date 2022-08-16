@@ -49,7 +49,8 @@ class Game:
                     self.pause = not self.pause
                 if event.key == self.settings.shortcut_background_scroll_pause:
                     self.background.pause()
-
+                if event.key == self.settings.shortcut_fire:
+                    self.bullet.fire(self.player.rect.x, self.player.rect.y)
     def run_logic(self):
         pass
 

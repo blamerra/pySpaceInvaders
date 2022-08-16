@@ -12,5 +12,6 @@
 # Recursos
 ## Iconos
 - https://www.flaticon.com/
+- https://thenounproject.com/icon/tie-fighter-42403/
 ## Editor imagenes
 - https://www.photopea.com/

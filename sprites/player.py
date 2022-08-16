@@ -23,11 +23,11 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.player_speed
 
     def move_right(self):
-        if self.rect.x < self.settings.screen_width - self.rect.width:
+        if self.rect.x < self.settings.screen_width - self.rect.width - self.settings.player_image_x_margin:
             self.rect.x += self.player_speed
 
     def move_left(self):
-        if self.rect.x > 0:
+        if self.rect.x >= self.settings.player_image_x_margin:
             self.rect.x -= self.player_speed
 
     def update(self):

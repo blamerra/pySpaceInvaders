@@ -20,17 +20,18 @@ class Settings:
         self.audio_background = "media/sound/background.wav"
 
         # Background
-        self.background_image = "media/img/background_800x1200.png"
+        self.background_image = "media/img/background_scroll.png"
         self.background_scroll = True
         self.background_scroll_speed = 1
         self.shortcut_background_scroll_pause = pygame.K_b
 
         # Player settings
         self.player_image = "media/img/spaceship.png"
+        self.player_image_x_margin = 5  # Margen en el eje x para que la nave no salga de la pantalla
         self.player_speed = 10
         self.player_vertical_move = True
 
         # Bullet settings
         self.bullet_image = "media/img/bullet_laser.png"
-        self.bullet_speed = 15
-
+        self.bullet_speed = 12
+        self.shortcut_fire = pygame.K_SPACE
