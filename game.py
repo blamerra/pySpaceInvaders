@@ -47,9 +47,3 @@ class Game:
                 self.sprites.draw(self.screen)
                 pygame.display.update()
         pygame.quit()
-
-
-if __name__ == '__main__':
-    # Make a game instance, and run the game.
-    game = Game()
-    game.run()
