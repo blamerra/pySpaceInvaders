@@ -31,7 +31,9 @@ class Game:
         self.sprites.add(self.background, self.bullet, self.player, self.fps)
 
         # Audio
+        pygame.mixer.set_num_channels(20)
         pygame.mixer.music.load(self.SETTINGS.audio_background)
+        pygame.mixer.music.set_volume(self.SETTINGS.audio_background_volume)
         pygame.mixer.music.play(-1)
 
         # Main loop running variables
