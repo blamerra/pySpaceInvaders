@@ -18,3 +18,8 @@
 
 ## Editor imagenes
 - https://www.photopea.com/
+
+## Sonidos
+- Star Wars :
+  - https://starchives.tripod.com/swwav.html
+  - https://www.thesoundarchive.com/star-wars.asp

@@ -17,7 +17,10 @@ class Settings:
         self.screen_title = "Space Invaders"
 
         # Audio
-        self.audio_background = "media/sound/background.wav"
+        # self.audio_background = "media/sound/background.wav"
+        # self.audio_background = "media/sound/sw_imperial_march.mp3"
+        # self.audio_background = "media/sound/sw_rebel-theme.mp3"
+        self.audio_background = "media/sound/sw-theme-song.mp3"
 
         # Background
         self.background_image = "media/img/background_scroll.png"
@@ -33,6 +36,7 @@ class Settings:
 
         # Bullet settings
         self.bullet_image = "media/img/bullet_laser.png"
-        self.bullet_speed = 12
+        self.bullet_sound = "media/sound/SW_rifle.wav"
+        self.bullet_speed = 15
         self.shortcut_fire = pygame.K_SPACE
-        self.bullet_sound = "media/sound/bullet.wav"
+

@@ -60,9 +60,7 @@ class Game:
         if not self.pause:
             pygame.mixer.music.unpause()
             self.clock.tick(self.SETTINGS.fps)
-            # self.fps.fps = str(int(self.clock.get_fps()))
             self.fps.set_fps(self.clock.get_fps())
-
 
             self.sprites.update()
             self.sprites.draw(self.screen)
