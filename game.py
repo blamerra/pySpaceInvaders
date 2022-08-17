@@ -8,16 +8,16 @@ from sprites.fps import Fps
 
 class Game:
     """Overall class to manage game assets and behavior."""
+    SETTINGS = Settings()
 
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
-        self.settings = Settings()
 
         # Screen creation
-        pygame.display.set_icon(pygame.image.load(self.settings.screen_icon))
-        pygame.display.set_caption(self.settings.screen_title)
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_icon(pygame.image.load(self.SETTINGS.screen_icon))
+        pygame.display.set_caption(self.SETTINGS.screen_title)
+        self.screen = pygame.display.set_mode((self.SETTINGS.screen_width, self.SETTINGS.screen_height))
 
         # Fps
         self.clock = pygame.time.Clock()
@@ -31,7 +31,7 @@ class Game:
         self.sprites.add(self.background, self.bullet, self.player, self.fps)
 
         # Audio
-        pygame.mixer.music.load(self.settings.audio_background)
+        pygame.mixer.music.load(self.SETTINGS.audio_background)
         pygame.mixer.music.play(-1)
 
         # Main loop running variables
@@ -45,11 +45,11 @@ class Game:
                 self.running = 0
 
             if event.type == pygame.KEYDOWN:
-                if event.key == self.settings.shortcut_pause:
+                if event.key == self.SETTINGS.shortcut_pause:
                     self.pause = not self.pause
-                if event.key == self.settings.shortcut_background_scroll_pause:
+                if event.key == self.SETTINGS.shortcut_background_scroll_pause:
                     self.background.pause()
-                if event.key == self.settings.shortcut_fire:
+                if event.key == self.SETTINGS.shortcut_fire:
                     self.bullet.fire(self.player.rect.x, self.player.rect.y)
 
     def run_logic(self):
@@ -59,8 +59,10 @@ class Game:
         # Render Screen
         if not self.pause:
             pygame.mixer.music.unpause()
-            self.clock.tick(self.settings.fps)
-            self.fps.fps = str(int(self.clock.get_fps()))
+            self.clock.tick(self.SETTINGS.fps)
+            # self.fps.fps = str(int(self.clock.get_fps()))
+            self.fps.set_fps(self.clock.get_fps())
+
 
             self.sprites.update()
             self.sprites.draw(self.screen)

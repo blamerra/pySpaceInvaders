@@ -35,3 +35,4 @@ class Settings:
         self.bullet_image = "media/img/bullet_laser.png"
         self.bullet_speed = 12
         self.shortcut_fire = pygame.K_SPACE
+        self.bullet_sound = "media/sound/bullet.wav"

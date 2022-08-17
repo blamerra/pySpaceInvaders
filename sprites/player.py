@@ -3,31 +3,31 @@ from settings import Settings
 
 
 class Player(pygame.sprite.Sprite):
-    settings = Settings()
+    SETTINGS = Settings()
 
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(self.settings.player_image)
+        self.image = pygame.image.load(self.SETTINGS.player_image)
         self.rect = self.image.get_rect()
-        self.rect.x = (self.settings.screen_width - (self.rect.width // 2)) // 2
-        self.rect.y = (self.settings.screen_height - 100)
-        self.player_speed = self.settings.player_speed
-        self.player_vertical_move = self.settings.player_vertical_move
+        self.rect.x = (self.SETTINGS.screen_width - (self.rect.width // 2)) // 2
+        self.rect.y = (self.SETTINGS.screen_height - 100)
+        self.player_speed = self.SETTINGS.player_speed
+        self.player_vertical_move = self.SETTINGS.player_vertical_move
 
     def move_up(self):
         if (self.rect.y > 0) & self.player_vertical_move:
             self.rect.y -= self.player_speed
 
     def move_down(self):
-        if (self.rect.y < self.settings.screen_height - self.rect.height) & self.player_vertical_move:
+        if (self.rect.y < self.SETTINGS.screen_height - self.rect.height) & self.player_vertical_move:
             self.rect.y += self.player_speed
 
     def move_right(self):
-        if self.rect.x < self.settings.screen_width - self.rect.width - self.settings.player_image_x_margin:
+        if self.rect.x < self.SETTINGS.screen_width - self.rect.width - self.SETTINGS.player_image_x_margin:
             self.rect.x += self.player_speed
 
     def move_left(self):
-        if self.rect.x >= self.settings.player_image_x_margin:
+        if self.rect.x >= self.SETTINGS.player_image_x_margin:
             self.rect.x -= self.player_speed
 
     def update(self):
