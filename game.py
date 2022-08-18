@@ -1,5 +1,6 @@
 import pygame
 from settings import Settings
+from sprites.audio import Audio
 from sprites.background import Background
 from sprites.bullet import Bullet
 from sprites.player import Player
@@ -23,18 +24,13 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Sprites creation
-        self.player = Player()
+        self.audio = Audio()
         self.bullet = Bullet()
         self.background = Background()
         self.fps = Fps()
+        self.player = Player()
         self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.background, self.bullet, self.player, self.fps)
-
-        # Audio
-        pygame.mixer.set_num_channels(20)
-        pygame.mixer.music.load(self.SETTINGS.audio_background)
-        pygame.mixer.music.set_volume(self.SETTINGS.audio_background_volume)
-        pygame.mixer.music.play(-1)
+        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps)
 
         # Main loop running variables
         self.running = 1
