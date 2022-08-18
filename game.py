@@ -2,6 +2,7 @@ import pygame
 from settings import Settings
 from sprites.audio import Audio
 from sprites.background import Background
+from sprites.frontend import Frontend
 from sprites.bullet import Bullet
 from sprites.player import Player
 from sprites.fps import Fps
@@ -27,10 +28,11 @@ class Game:
         self.audio = Audio()
         self.bullet = Bullet()
         self.background = Background()
+        self.frontend = Frontend(self.screen)
         self.fps = Fps()
         self.player = Player()
         self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps)
+        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps, self.frontend)
 
         # Main loop running variables
         self.running = 1
@@ -45,8 +47,6 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == self.SETTINGS.shortcut_pause:
                     self.pause = not self.pause
-                if event.key == self.SETTINGS.shortcut_background_scroll_pause:
-                    self.background.pause()
                 if event.key == self.SETTINGS.shortcut_fire:
                     self.bullet.fire(self.player.rect.x, self.player.rect.y)
 

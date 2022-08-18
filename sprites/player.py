@@ -12,14 +12,14 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.SETTINGS.player_image)
         self.rect = self.image.get_rect()
         self.rect.x = (self.SETTINGS.screen_width - (self.rect.width // 2)) // 2
-        self.rect.y = (self.SETTINGS.screen_height + 100) # lo situamos fuera de la pantalla
+        self.rect.y = (self.SETTINGS.screen_height + 500) # lo situamos fuera de la pantalla
 
         self.speed = self.SETTINGS.player_speed
         self.vertical_move = self.SETTINGS.player_vertical_move
 
         # Start Animation
         self.start = 1
-        self.start_top_y = (self.SETTINGS.screen_height - 250)
+        self.start_top_y = (self.SETTINGS.screen_height - (self.SETTINGS.screen_height * 0.2))
         self.start_speed = self.speed * 0.3  # Se hace la entrada mas lenta
     def move_up(self):
         if (self.rect.y > 0) & self.vertical_move:

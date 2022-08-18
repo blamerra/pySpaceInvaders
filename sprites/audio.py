@@ -30,8 +30,6 @@ class Audio(pygame.sprite.Sprite):
         play_sound = True if random() < self.SETTINGS.player_sound_random_probability else False
 
         if play_sound and ((pygame.time.get_ticks() - self.sound_last_play_time) > self.sound_delay):
-            print("SOUND: " + str(self.sound_index))
-
             self.current_sound.stop()
             self.current_sound = pygame.mixer.Sound(self.sounds[self.sound_index])
             self.current_sound.set_volume(self.SETTINGS.player_sound_random_volume)
