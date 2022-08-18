@@ -3,7 +3,7 @@
  https://github.com/attreyabhatt/Space-Invaders-Pygame
 
 ## Tutorial Mundo Python
--  https://www.youtube.com/watch?v=MY9Jbri3wnE
+https://www.youtube.com/watch?v=MY9Jbri3wnE
 - https://github.com/mundo-python/pygame-Scripts/blob/master/17_game_over.py
 
 ## Project structure

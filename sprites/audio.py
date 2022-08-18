@@ -17,7 +17,7 @@ class Audio(pygame.sprite.Sprite):
         # Background music
         pygame.mixer.music.load(self.SETTINGS.audio_background)
         pygame.mixer.music.set_volume(self.SETTINGS.audio_background_volume)
-        pygame.mixer.music.play(-1)
+        #pygame.mixer.music.play(-1)
 
         # Random sounds
         self.sound_index = 0

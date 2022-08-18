@@ -1,11 +1,14 @@
-import pygame
+import pygame, random
+
 from settings import Settings
 from sprites.audio import Audio
 from sprites.background import Background
-from sprites.frontend import Frontend
 from sprites.bullet import Bullet
-from sprites.player import Player
 from sprites.fps import Fps
+from sprites.frontend import Frontend
+from sprites.meteor import Meteor
+from sprites.player import Player
+
 
 
 class Game:
@@ -32,7 +35,16 @@ class Game:
         self.fps = Fps()
         self.player = Player()
         self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps, self.frontend)
+        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps)
+
+        for i in range(200):
+            meteor = Meteor()
+            # meteor.rect.x = random.randrange(self.SETTINGS.screen_width)
+            # meteor.rect.y = random.randrange(self.SETTINGS.screen_height )
+
+            self.sprites.add(meteor)
+
+        self.sprites.add(self.frontend)
 
         # Main loop running variables
         self.running = 1

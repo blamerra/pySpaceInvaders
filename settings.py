@@ -40,14 +40,6 @@ class Settings:
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound5.wav")
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound6.wav")
 
-        self.player_sound_random0 = "media/sound/player_sw_R2D2_sound0.wav"
-        self.player_sound_random1 = "media/sound/player_sw_R2D2_sound1.wav"
-        self.player_sound_random2 = "media/sound/player_sw_R2D2_sound2.wav"
-        self.player_sound_random3 = "media/sound/player_sw_R2D2_sound3.mp3"
-        self.player_sound_random4 = "media/sound/player_sw_R2D2_sound4.wav"
-        self.player_sound_random5 = "media/sound/player_sw_R2D2_sound5.wav"
-        self.player_sound_random6 = "media/sound/player_sw_R2D2_sound6.wav"
-
         self.player_sound_random_probability = 0.003
         self.player_sound_random_volume = 0.7
         self.player_sound_random_delay = 1000  # miliseconds
@@ -59,3 +51,9 @@ class Settings:
         self.bullet_speed = 15
         self.shortcut_fire = pygame.K_SPACE
 
+        # Meteor
+        self.meteor_image = "media/img/meteor.png"
+
+        # Colors
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
