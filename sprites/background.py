@@ -14,10 +14,6 @@ class Background(pygame.sprite.Sprite):
         self.scroll_speed = self.settings.background_scroll_speed
 
     def update(self):
-        # keys = pygame.key.get_pressed()
-        # if keys[SHORTCUT_BACKGROUND_SCROLL_STOP]:
-        #    self.scroll = not self.scroll
-
         if self.scroll:
             if self.rect.y < 0:
                 self.rect.y += self.scroll_speed
