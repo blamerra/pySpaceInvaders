@@ -37,11 +37,10 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps)
 
+        # TODO refactor carga de imagenes en una clase
+        meteor_image = pygame.image.load(self.SETTINGS.meteor_image).convert()
         for i in range(200):
-            meteor = Meteor()
-            # meteor.rect.x = random.randrange(self.SETTINGS.screen_width)
-            # meteor.rect.y = random.randrange(self.SETTINGS.screen_height )
-
+            meteor = Meteor(meteor_image)
             self.sprites.add(meteor)
 
         self.sprites.add(self.frontend)
