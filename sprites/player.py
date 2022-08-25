@@ -21,6 +21,9 @@ class Player(pygame.sprite.Sprite):
         self.start = 1
         self.start_top_y = (self.SETTINGS.screen_height - (self.SETTINGS.screen_height * 0.3))
         self.start_speed = self.speed * 0.3  # Se hace la entrada mas lenta
+        self.sound_channel = pygame.mixer.find_channel()
+        self.sound_explosion = pygame.mixer.Sound(self.SETTINGS.player_sound_explosion)
+
     def move_up(self):
         if (self.rect.y > 0) & self.vertical_move:
             self.rect.y -= self.speed
@@ -43,10 +46,14 @@ class Player(pygame.sprite.Sprite):
 
         if self.rect.y <= self.start_top_y:
             self.start = 0
-
+    def die(self):
+        self.sound_explosion.stop()
+        self.sound_channel.stop()
+        self.sound_channel.play(self.sound_explosion)
     def update(self):
         if self.start:
             self.start_animation()
+
         else:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:

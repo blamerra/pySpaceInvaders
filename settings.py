@@ -31,6 +31,7 @@ class Settings:
         self.player_image_x_margin = 5  # Margen en el eje x para que la nave no salga de la pantalla
         self.player_speed = 10
         self.player_vertical_move = True
+        self.player_sound_explosion = "media/sound/player_explosion.wav"
         self.player_sound_random = []
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound0.wav")
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound1.wav")

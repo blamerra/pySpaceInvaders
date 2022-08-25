@@ -6,11 +6,14 @@ from settings import Settings
 
 class Meteor(pygame.sprite.Sprite):
     SETTINGS = Settings()
+    SIZE = [(16, 16), (32, 32), (64, 64), (96, 96)]
 
     def __init__(self, image):
         super().__init__()
         # self.image = pygame.image.load(self.SETTINGS.meteor_image).convert()
         self.image = image
+        self.meteor_size = self.SIZE[random.randrange(0, len(self.SIZE) - 1, 1)]
+        self.image = pygame.transform.scale(image, self.meteor_size)
         self.image.set_colorkey(self.SETTINGS.BLACK)
         self.rect = self.image.get_rect()
         self.rect.y = -600
