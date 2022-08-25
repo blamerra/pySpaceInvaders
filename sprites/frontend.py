@@ -8,7 +8,6 @@ class Frontend(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
 
-
         self.rectangle_height = self.SETTINGS.screen_height
 
         # Create transparent surface
@@ -23,3 +22,6 @@ class Frontend(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y < self.rectangle_height:
             self.rect.y -= self.speed
+        else:
+            ''' Una vez finalizada la animacion inicial puede eliminarse'''
+            self.kill()

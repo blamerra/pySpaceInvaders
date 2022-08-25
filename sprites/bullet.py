@@ -25,8 +25,16 @@ class Bullet(pygame.sprite.Sprite):
             pygame.mixer.find_channel().play(self.sound)
             self.status = self.STATUS_FIRED
 
+    def set_ready_status(self):
+        self.status = self.STATUS_READY
+        self.rect.y = -self.rect.height
+
+    def move(self):
+        self.rect.y -= self.speed
+
     def update(self):
-        if self.rect.y > -self.rect.height and self.status == 1:
-            self.rect.y -= self.speed
+        if self.rect.y > (-self.rect.height) and self.status == self.STATUS_FIRED:
+            self.move()
         else:
-            self.status = self.STATUS_READY
+            self.set_ready_status()
+        print(self.rect.y)

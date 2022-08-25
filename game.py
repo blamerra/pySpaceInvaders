@@ -1,4 +1,4 @@
-import pygame, random
+import pygame
 
 from settings import Settings
 from sprites.audio import Audio
@@ -9,8 +9,6 @@ from sprites.frontend import Frontend
 from sprites.meteor import Meteor
 from sprites.player import Player
 
-
-
 class Game:
     """Overall class to manage game assets and behavior."""
     SETTINGS = Settings()
@@ -18,6 +16,9 @@ class Game:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
+
+        self.game_over = False
+        self.score = 0
 
         # Screen creation
         pygame.display.set_icon(pygame.image.load(self.SETTINGS.screen_icon))
@@ -28,21 +29,31 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Sprites creation
+        self.sprites = pygame.sprite.Group()
+
         self.audio = Audio()
+        self.sprites.add(self.audio)
+
         self.bullet = Bullet()
         self.background = Background()
         self.frontend = Frontend(self.screen)
-        self.fps = Fps()
-        self.player = Player()
-        self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.audio, self.background, self.bullet, self.player, self.fps)
 
+        self.player = Player()
+
+        self.sprites.add(self.background, self.bullet, self.player)
+        self.fps = Fps()
+        self.sprites.add(self.fps)
+
+        # Meteors
         # TODO refactor carga de imagenes en una clase
         meteor_image = pygame.image.load(self.SETTINGS.meteor_image).convert()
-        for i in range(200):
+        self.meteor_list = pygame.sprite.Group()
+        for i in range(25):
             meteor = Meteor(meteor_image)
             self.sprites.add(meteor)
+            self.meteor_list.add(meteor)
 
+        # Animacion de la cortinilla de inicio
         self.sprites.add(self.frontend)
 
         # Main loop running variables
@@ -62,16 +73,35 @@ class Game:
                     self.bullet.fire(self.player.rect.x, self.player.rect.y)
 
     def run_logic(self):
-        pass
+        if not self.game_over:
+
+            self.clock.tick(self.SETTINGS.fps)
+            self.fps.set_fps(self.clock.get_fps())
+
+            self.sprites.update()
+
+            #print(self.bullet.status)
+
+            if self.bullet.status == self.bullet.STATUS_FIRED:
+                meteor_hit_list = pygame.sprite.spritecollide(self.bullet, self.meteor_list, True)
+                if len(meteor_hit_list) > 0:
+                    self.bullet.set_ready_status()
+                    self.score += 1
+                    '''
+                    for meteor in meteor_hit_list:
+                        self.score += 1
+                        print(self.score)
+                    '''
+                if len(self.meteor_list) == 0:
+                    print("GAME OVER")
+                    self.game_over = True
 
     def render_screen(self):
         # Render Screen
         if not self.pause:
             pygame.mixer.music.unpause()
-            self.clock.tick(self.SETTINGS.fps)
-            self.fps.set_fps(self.clock.get_fps())
 
-            self.sprites.update()
+            # self.sprites.update()
             self.sprites.draw(self.screen)
             pygame.display.update()
         else:
