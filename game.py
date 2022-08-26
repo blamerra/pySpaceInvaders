@@ -52,7 +52,7 @@ class Game:
 
         meteor_image = pygame.image.load(self.SETTINGS.meteor_image).convert()
         self.meteor_list = pygame.sprite.Group()
-        for i in range(50):
+        for i in range(self.SETTINGS.meteor_number):
             meteor = Meteor(meteor_image)
             self.sprites.add(meteor)
             self.meteor_list.add(meteor)

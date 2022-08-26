@@ -32,6 +32,7 @@ class Settings:
         self.player_speed = 10
         self.player_vertical_move = True
         self.player_sound_explosion = "media/sound/player_explosion.wav"
+
         self.player_sound_random = []
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound0.wav")
         self.player_sound_random.append("media/sound/player_sw_R2D2_sound1.wav")
@@ -54,6 +55,7 @@ class Settings:
 
         # Meteor
         self.meteor_image = "media/img/meteor.png"
+        self.meteor_number = 1000
 
         # Colors
         self.BLACK = (0, 0, 0)
