@@ -27,5 +27,14 @@ https://www.youtube.com/watch?v=MY9Jbri3wnE
   - https://www.thesoundarchive.com/star-wars.asp
   - http://www.moviewavs.com/Movies/Star_Wars.html
 - https://freesound.org/ 
+
 ## Musica
 - https://filmmusic.io/artists/kevin-macleod
+
+## Assets meteoros torpedos etc..
+Shooter Game tutorial con buenos assets
+- https://www.youtube.com/watch?v=pyiMf6Vr94Y
+- https://github.com/mundo-python/shooter-pygame
+
+## TODO Tank battle tutorial with AI
+- https://kidscancode.org/blog/2018/04/godot3_tanks_part1/
