@@ -48,7 +48,7 @@ class Settings:
 
         # Bullet settings
         # self.bullet_image = "media/img/bullet_laser.png"
-        # self.bullet_sound = "media/sound/bullet_sw_blaster.wav"
+        # self.bullet_sound = "media/sound/bullet_laser.wav"
         self.bullet_image = "media/img/bullet_torpedo.png"
         self.bullet_sound = "media/sound/bullet_torpedo.wav"
         self.bullet_sound_volume = 1
@@ -57,7 +57,7 @@ class Settings:
         self.shortcut_fire = pygame.K_SPACE
 
         self.bullet_ammo = []
-        self.bullet_ammo.append(Ammo('laser', "media/img/bullet_laser.png", "media/sound/bullet_torpedo.wav", 0.5, 15, 0))
+        self.bullet_ammo.append(Ammo('laser', "media/img/bullet_laser.png", "media/sound/bullet_laser.wav", 0.5, 15, 0))
         self.bullet_ammo.append(Ammo('torpedo', "media/img/bullet_torpedo.png", "media/sound/bullet_torpedo.wav", 1, 1, 0.1))
 
         # Meteor
