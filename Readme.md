@@ -6,6 +6,9 @@
 
 
 # Tutoriales usados
+## Advanced tutorial with folder structure and ship acceleration
+- https://realpython.com/asteroids-game-python/
+- 
 ## Assets and original game
  https://github.com/attreyabhatt/Space-Invaders-Pygame
 

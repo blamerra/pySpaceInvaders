@@ -16,21 +16,17 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = None
         self.speed_increase = None
         self.status = self.STATUS_READY
+        self.ammo_active = self.AMMO_LASER
+        self.sound_channel = pygame.mixer.find_channel()
 
         self.ammo_list = []
         self.ammo_list.append(
                 Ammo('laser', self.SETTINGS.ammo_laser_image, self.SETTINGS.ammo_laser_sound, 0.5, 15, 0)
             )
         self.ammo_list.append(
-                Ammo('torpedo', self.SETTINGS.ammo_torpedo_image, self.SETTINGS.ammo_torpedo_sound, 1, 1, 0.03)
+                Ammo('torpedo', self.SETTINGS.ammo_torpedo_image, self.SETTINGS.ammo_torpedo_sound, 1, 1, 0.05)
             )
-
-        self.ammo_active = self.AMMO_LASER
-        self.sound_channel = pygame.mixer.find_channel()
         self._update_ammo(self.ammo_active)
-        self.rect.x = 0
-        self.rect.y = -self.rect.height  # ocultamos la imagen fuera de la pantalla
-
 
 
 
@@ -68,6 +64,10 @@ class Bullet(pygame.sprite.Sprite):
         self.sound = self.ammo_list[ammo_type].sound
         self.speed = self.ammo_list[ammo_type].speed
         self.speed_increase = self.ammo_list[ammo_type].speed_increase
+
+        # ocultamos la imagen fuera de la pantalla
+        self.rect.x = -self.rect.width
+        self.rect.y = -self.rect.height
 
     def ammo_change(self):
         if self.ammo_active == self.AMMO_LASER:
