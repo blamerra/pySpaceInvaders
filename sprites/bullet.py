@@ -6,6 +6,8 @@ class Bullet(pygame.sprite.Sprite):
     SETTINGS = Settings()
     STATUS_READY = 0
     STATUS_FIRED = 1
+    AMMO_LASER = 0
+    AMMO_TORPEDO = 1
 
     def __init__(self):
         super().__init__()
