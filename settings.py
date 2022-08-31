@@ -1,5 +1,5 @@
 import pygame
-from classes.ammo import Ammo
+
 
 class Settings:
     """A class to store all settings."""
@@ -56,9 +56,13 @@ class Settings:
         self.bullet_speed_increase = 0  # 0.03 para torpedo 0 para laser
         self.shortcut_fire = pygame.K_SPACE
 
-        self.bullet_ammo = []
-        self.bullet_ammo.append(Ammo('laser', "media/img/bullet_laser.png", "media/sound/bullet_laser.wav", 0.5, 15, 0))
-        self.bullet_ammo.append(Ammo('torpedo', "media/img/bullet_torpedo.png", "media/sound/bullet_torpedo.wav", 1, 1, 0.1))
+        # Ammo used for bullets
+        self.ammo_laser_image = "media/img/bullet_laser.png"
+        self.ammo_laser_sound = "media/sound/bullet_laser.wav"
+        self.ammo_torpedo_image = "media/img/bullet_torpedo.png"
+        self.ammo_torpedo_sound = "media/sound/bullet_torpedo.wav"
+        self.shortcut_ammo_change = pygame.K_w
+
 
         # Meteor
         self.meteor_image = "media/img/meteor.png"

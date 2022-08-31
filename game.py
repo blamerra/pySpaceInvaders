@@ -9,6 +9,7 @@ from sprites.frontend import Frontend
 from sprites.meteor import Meteor
 from sprites.player import Player
 
+
 class Game:
     """Overall class to manage game assets and behavior."""
     SETTINGS = Settings()
@@ -77,14 +78,16 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = 0
-        '''
+
             if event.type == pygame.KEYDOWN:
+                if event.key == self.SETTINGS.shortcut_ammo_change:
+                    self.bullet.ammo_change()
                 if event.key == self.SETTINGS.shortcut_pause:
                     self.pause = not self.pause
                 # if event.key == self.SETTINGS.shortcut_fire:
                     # self.bullet.fire(self.player.rect.x, self.player.rect.y)
                   #   self.bullet.fire(300, 200)
-        '''
+
         # Revisar si es necesario esta instruccion
         # pygame.event.pump()
     def run_logic(self):
