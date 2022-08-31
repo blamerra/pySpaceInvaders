@@ -30,12 +30,15 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.y = y
 
             self.status = self.STATUS_FIRED
-
+        else:
+            pass
     def set_ready_status(self):
         self.status = self.STATUS_READY
         self.rect.y = -self.rect.height
+        self.speed = self.SETTINGS.bullet_speed
 
     def move(self):
+        self.speed += self.speed * self.SETTINGS.bullet_speed_increase
         self.rect.y -= self.speed
 
     def update(self):

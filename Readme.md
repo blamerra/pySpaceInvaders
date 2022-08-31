@@ -1,3 +1,10 @@
+# Roadmap
+- Anadir torpedos en bullet
+- Anadir somido r2d2
+- buscar el bug que hace que se cuelgue
+
+
+
 # Tutoriales usados
 ## Assets and original game
  https://github.com/attreyabhatt/Space-Invaders-Pygame
@@ -27,6 +34,7 @@ https://www.youtube.com/watch?v=MY9Jbri3wnE
   - https://www.thesoundarchive.com/star-wars.asp
   - http://www.moviewavs.com/Movies/Star_Wars.html
 - https://freesound.org/ 
+- http://www.sa-matra.net/sounds/starwars/
 
 ## Musica
 - https://filmmusic.io/artists/kevin-macleod

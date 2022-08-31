@@ -43,8 +43,7 @@ class Game:
         self.player = Player()
         self.sprites.add(self.player)
 
-        self.fps = Fps()
-        self.sprites.add(self.fps)
+
 
 
         # Meteors
@@ -56,6 +55,10 @@ class Game:
             meteor = Meteor(meteor_image)
             self.sprites.add(meteor)
             self.meteor_list.add(meteor)
+
+        # FPS
+        self.fps = Fps()
+        self.sprites.add(self.fps)
 
         # Animacion de la cortinilla de inicio
         self.frontend = Frontend(self.screen)
@@ -83,7 +86,7 @@ class Game:
                   #   self.bullet.fire(300, 200)
         '''
         # Revisar si es necesario esta instruccion
-        pygame.event.pump()
+        # pygame.event.pump()
     def run_logic(self):
         if not self.game_over:
 

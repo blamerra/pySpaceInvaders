@@ -47,15 +47,18 @@ class Settings:
         self.player_sound_random_delay = 1000  # miliseconds
 
         # Bullet settings
-        self.bullet_image = "media/img/bullet_laser.png"
-        self.bullet_sound = "media/sound/bullet_sw_blaster.wav"
-        self.bullet_sound_volume = 0.5
+        # self.bullet_image = "media/img/bullet_laser.png"
+        # self.bullet_sound = "media/sound/bullet_sw_blaster.wav"
+        self.bullet_image = "media/img/bullet_torpedo.png"
+        self.bullet_sound = "media/sound/bullet_torpedo.wav"
+        self.bullet_sound_volume = 1
         self.bullet_speed = 15
+        self.bullet_speed_increase = 0 # 0.03 para torpedo 0 para laser
         self.shortcut_fire = pygame.K_SPACE
 
         # Meteor
         self.meteor_image = "media/img/meteor.png"
-        self.meteor_number = 1000
+        self.meteor_number = 0
 
         # Colors
         self.BLACK = (0, 0, 0)
