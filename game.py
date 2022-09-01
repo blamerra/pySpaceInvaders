@@ -69,14 +69,16 @@ class Game:
         self.running = 1
         self.pause = 0
 
-    def process_events(self):
+    def _process_events(self):
         # Event loop
         keys = pygame.key.get_pressed()
         if keys[self.SETTINGS.shortcut_fire]:
             self.bullet.fire(self.player.rect.x, self.player.rect.y)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (
+                event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+            ):
                 self.running = 0
 
             if event.type == pygame.KEYDOWN:
@@ -84,13 +86,14 @@ class Game:
                     self.bullet.ammo_change()
                 if event.key == self.SETTINGS.shortcut_pause:
                     self.pause = not self.pause
+
                 # if event.key == self.SETTINGS.shortcut_fire:
                     # self.bullet.fire(self.player.rect.x, self.player.rect.y)
                   #   self.bullet.fire(300, 200)
 
         # Revisar si es necesario esta instruccion
         # pygame.event.pump()
-    def run_logic(self):
+    def _run_logic(self):
         if not self.game_over:
 
             self.clock.tick(self.SETTINGS.fps)
@@ -117,7 +120,7 @@ class Game:
                 self.player.die()
                 print("GAME OVER - Player died")
                 self.game_over = True
-    def render_screen(self):
+    def _render_screen(self):
         # self.screen.fill([0, 0, 0])
 
         # Render Screen
@@ -131,7 +134,7 @@ class Game:
 
     def run(self):
         while self.running:
-            self.process_events()
-            self.run_logic()
-            self.render_screen()
+            self._process_events()
+            self._run_logic()
+            self._render_screen()
         pygame.quit()
