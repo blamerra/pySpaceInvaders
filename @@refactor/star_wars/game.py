@@ -27,24 +27,28 @@ class StarWars:
         pygame.display.set_caption("Star Wars")
 
     def _handle_input(self):
+        # Gestion eventos KEYDOWN
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (
                     event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
             ):
                 quit()
 
-        is_key_pressed = pygame.key.get_pressed()
 
+
+        # Gestion teclas pulsadas
+        is_key_pressed = pygame.key.get_pressed()
         if self.spaceship:
             if is_key_pressed[pygame.K_RIGHT]:
                 self.spaceship.rotate(clockwise=True)
             elif is_key_pressed[pygame.K_LEFT]:
                 self.spaceship.rotate(clockwise=False)
             if is_key_pressed[pygame.K_UP]:
-                self.spaceship.accelerate()
+                self.spaceship.accelerate_forward()
             if is_key_pressed[pygame.K_DOWN]:
-                self.spaceship.decelerate()
-
+                self.spaceship.accelerate_back()
+            if is_key_pressed[pygame.K_END]:
+                self.spaceship.brake()
     def _process_game_logic(self):
         self.spaceship.move(self.screen)
 
