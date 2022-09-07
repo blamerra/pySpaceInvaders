@@ -15,8 +15,9 @@ class Utils:
         else:
             return loaded_sprite.convert()
 
-    def load_sound(name):
-        path = f"assets/sounds/{name}.wav"
+    @staticmethod
+    def load_sound(name, extension="wav"):
+        path = f"assets/sounds/{name}.{extension}"
         return Sound(path)
 
     # Position functions
