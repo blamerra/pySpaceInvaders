@@ -1,8 +1,8 @@
 import pygame
 from settings import Settings
 from classes.utils import Utils
-from classes.game_object import GameObject
 from classes.spaceship import Spaceship
+from classes.asteroid import Asteroid
 
 
 class StarWars:
@@ -14,6 +14,7 @@ class StarWars:
         self.background = Utils.load_sprite("background", False)
         self.clock = pygame.time.Clock()
 
+        self.asteroids = [Asteroid((0, 0)) for _ in range(6)]
         self.spaceship = Spaceship((400, 300))
 
     def run(self):
@@ -34,8 +35,6 @@ class StarWars:
             ):
                 quit()
 
-
-
         # Gestion teclas pulsadas
         is_key_pressed = pygame.key.get_pressed()
         if self.spaceship:
@@ -49,13 +48,19 @@ class StarWars:
                 self.spaceship.accelerate_back()
             if is_key_pressed[pygame.K_END]:
                 self.spaceship.brake()
+
+    def _get_game_objects(self):
+        return [*self.asteroids, self.spaceship]
+
     def _process_game_logic(self):
-        self.spaceship.move(self.screen)
+        for game_object in self._get_game_objects():
+            game_object.move(self.screen)
 
     def _draw(self):
         self.screen.blit(self.background, (0, 0))
-        self.spaceship.draw(self.screen)
+
+        for game_object in self._get_game_objects():
+            game_object.draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(Settings.fps)
-

@@ -17,3 +17,11 @@ class Utils:
         x, y = position
         w, h = surface.get_size()
         return Vector2(x % w, y % h)
+
+        '''
+        # Opcion para que el limite fijo este en los bordes y se pare
+        return_x = max(32, min(x, w-32))
+        return_y = max(32, min(y, h-32))
+        return_vector = Vector2(return_x, return_y)
+        return return_vector
+        '''
