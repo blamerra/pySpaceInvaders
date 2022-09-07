@@ -1,75 +1,41 @@
-from pygame.math import Vector2
+import random
 from pygame.transform import rotozoom
 
 from .game_object import GameObject
 from .utils import Utils
+from settings import Settings
 
 
 class Asteroid(GameObject):
-    UP = Vector2(0, -1)
+    def __init__(self, position, create_asteroid_callback, size=3):
+        self.size = size
+        self.create_asteroid_callback = create_asteroid_callback
+        size_to_scale = {
+            3: 1.5,
+            2: 0.75,
+            1: 0.5,
+        }
+        scale = size_to_scale[size]
+        sprite = rotozoom(Utils.load_sprite("asteroid"), 0, scale)
 
-    STOP = Vector2(0, 0)
-    MANEUVERABILITY = 3
-    ACCELERATION = 0.25
-    VELOCITY_MAX = 10
-    DIRECTION_FORWARD = 1
-    DIRECTION_BACK = -1
+        super().__init__(
+            position,
+            sprite,
+            Utils.get_random_velocity(Settings.ASTEROID_MIN_VELOCITY, Settings.ASTEROID_MAX_VELOCITY)
+        )
 
-    def __init__(self, position):
-        self.direction = Vector2(self.UP)
-        super().__init__(position, Utils.load_sprite("asteroid"), Vector2(0))
-
-    def rotate(self, clockwise=True):
-        sign = 1 if clockwise else -1
-        angle = self.MANEUVERABILITY * sign
-        self.direction.rotate_ip(angle)
+        self.rotate_clockwise = bool(random.getrandbits(1))  # random bool
+        self.MANEUVERABILITY = (abs(self.velocity[0]) + abs(self.velocity[1]))
 
     def draw(self, surface):
-        self._reset_max_velocity()
-        print(self.velocity)
-        angle = self.direction.angle_to(self.UP)
-        rotated_surface = rotozoom(self.sprite, angle, 1.0)
-        rotated_surface_size = Vector2(rotated_surface.get_size())
-        blit_position = self.position - rotated_surface_size * 0.5
+        self.rotate(self.rotate_clockwise)
+        rotated_surface, blit_position = self.rotate_surface()
         surface.blit(rotated_surface, blit_position)
 
-    # hay que hacer este reset ya que a veces se pasa por poco de la velocidad
-    def _reset_max_velocity(self):
-        if self.velocity[0] > self.VELOCITY_MAX:
-            self.velocity[0] = self.VELOCITY_MAX
-        if self.velocity[0] < -self.VELOCITY_MAX:
-            self.velocity[0] = -self.VELOCITY_MAX
-        if self.velocity[1] > self.VELOCITY_MAX:
-            self.velocity[1] = self.VELOCITY_MAX
-        if self.velocity[1] < -self.VELOCITY_MAX:
-            self.velocity[1] = -self.VELOCITY_MAX
-
-    def accelerate_forward(self):
-        if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX \
-                and self.VELOCITY_MAX >= self.velocity[1] >= -self.VELOCITY_MAX:
-            self.velocity += self.direction * self.ACCELERATION
-
-    def accelerate_back(self):
-        if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX \
-                and self.VELOCITY_MAX >= self.velocity[1] >= -self.VELOCITY_MAX:
-            self.velocity -= self.direction * self.ACCELERATION
-
-    def brake(self):
-        self.velocity[0] = 0
-        if self.velocity[1] < 0:
-            self.accelerate_back()
-        elif self.velocity[1] > 0:
-            self.accelerate_forward()
-
-        '''
-
-        else:
-            self.direction = self.UP
-
-        if self.direction != self.UP:
-            self.velocity[0] = 0
-            if self.direction[0] > 0:
-                self.rotate(False)
-            if self.direction[0] < 0:
-                self.rotate()
-        '''
+    def split(self):
+        if self.size > 1:
+            for _ in range(2):
+                asteroid = Asteroid(
+                    self.position, self.create_asteroid_callback, self.size - 1
+                )
+                self.create_asteroid_callback(asteroid)

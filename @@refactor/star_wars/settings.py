@@ -3,8 +3,13 @@ import pygame
 
 class Settings:
     """A class to store all settings."""
-    fps = 60
-
+    SCREEN_WIDTH = 1600
+    SCREEN_HEIGHT = 1200
+    FPS = 60
+    ASTEROID_MIN_DISTANCE = 250
+    ASTEROID_NUMBER = 10
+    ASTEROID_MIN_VELOCITY = 1
+    ASTEROID_MAX_VELOCITY = 3
     '''
     def __init__(self):
         """Initialize the game's settings."""

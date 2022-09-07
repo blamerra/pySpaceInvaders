@@ -1,36 +1,28 @@
 from pygame.math import Vector2
-from pygame.transform import rotozoom
 
+from .bullet import Bullet
 from .game_object import GameObject
 from .utils import Utils
 
 
 class Spaceship(GameObject):
-    UP = Vector2(0, -1)
-
     STOP = Vector2(0, 0)
-    MANEUVERABILITY = 3
     ACCELERATION = 0.25
     VELOCITY_MAX = 10
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
+    BULLET_SPEED = 3
 
-    def __init__(self, position):
+    def __init__(self, position, create_bullet_callback):
+        self.create_bullet_callback = create_bullet_callback
+        self.laser_sound = Utils.load_sound("bullet_laser")
+
         self.direction = Vector2(self.UP)
         super().__init__(position, Utils.load_sprite("spaceship"), Vector2(0))
 
-    def rotate(self, clockwise=True):
-        sign = 1 if clockwise else -1
-        angle = self.MANEUVERABILITY * sign
-        self.direction.rotate_ip(angle)
-
     def draw(self, surface):
         self._reset_max_velocity()
-        print(self.velocity)
-        angle = self.direction.angle_to(self.UP)
-        rotated_surface = rotozoom(self.sprite, angle, 1.0)
-        rotated_surface_size = Vector2(rotated_surface.get_size())
-        blit_position = self.position - rotated_surface_size * 0.5
+        rotated_surface, blit_position = self.rotate_surface()
         surface.blit(rotated_surface, blit_position)
 
     # hay que hacer este reset ya que a veces se pasa por poco de la velocidad
@@ -73,3 +65,8 @@ class Spaceship(GameObject):
             if self.direction[0] < 0:
                 self.rotate()
         '''
+    def shoot(self):
+        bullet_velocity = self.direction * self.BULLET_SPEED + self.velocity
+        bullet = Bullet(self.position, bullet_velocity, self.direction)
+        self.create_bullet_callback(bullet)
+        self.laser_sound.play()
