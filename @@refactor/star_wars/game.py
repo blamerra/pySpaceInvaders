@@ -56,8 +56,8 @@ class StarWars:
             elif self.spaceship and event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.spaceship.shoot()
-                elif event.key == pygame.K_UP:
-                    self.spaceship.accelerate_forward()
+                #elif event.key == pygame.K_UP:
+                #    self.spaceship.accelerate_forward()
                 elif event.key == pygame.K_DOWN:
                     self.spaceship.accelerate_back()
                 elif event.key == pygame.K_END:
@@ -69,6 +69,8 @@ class StarWars:
                 self.spaceship.rotate(clockwise=True)
             elif is_key_pressed[pygame.K_LEFT]:
                 self.spaceship.rotate(clockwise=False)
+            elif is_key_pressed[pygame.K_UP]:
+                    self.spaceship.accelerate_forward()
             '''
             elif is_key_pressed[pygame.K_END]:
                 self.spaceship.brake()

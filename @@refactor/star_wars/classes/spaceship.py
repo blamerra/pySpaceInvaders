@@ -10,7 +10,7 @@ from settings import Settings
 
 class Spaceship(GameObject):
     STOP = Vector2(0, 0)
-    ACCELERATION = 1
+    ACCELERATION = 0.3
     VELOCITY_MAX = 10
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
