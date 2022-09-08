@@ -23,8 +23,14 @@ class Utils:
         return Sound(path)
 
     @staticmethod
-    def play_sound(sound):
-        if Settings.SOUND_ON: sound.play()
+    def play_sound(sound, channel=None):
+        if Settings.SOUND_ON:
+            if channel:
+                channel.stop
+                channel.play(sound)
+                print("chanel")
+            else:
+                sound.play()
 
     # Position functions
     @staticmethod

@@ -53,13 +53,15 @@ class StarWars:
                     event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
             ):
                 quit()
-            elif (
-                    self.spaceship
-                    and event.type == pygame.KEYDOWN
-                    and event.key == pygame.K_SPACE
-            ):
-                self.spaceship.shoot()
-
+            elif self.spaceship and event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.spaceship.shoot()
+                elif event.key == pygame.K_UP:
+                    self.spaceship.accelerate_forward()
+                elif event.key == pygame.K_DOWN:
+                    self.spaceship.accelerate_back()
+                elif event.key == pygame.K_END:
+                    self.spaceship.brake()
         # Gestion teclas pulsadas
         is_key_pressed = pygame.key.get_pressed()
         if self.spaceship:
@@ -67,12 +69,16 @@ class StarWars:
                 self.spaceship.rotate(clockwise=True)
             elif is_key_pressed[pygame.K_LEFT]:
                 self.spaceship.rotate(clockwise=False)
-            if is_key_pressed[pygame.K_UP]:
-                self.spaceship.accelerate_forward()
-            if is_key_pressed[pygame.K_DOWN]:
-                self.spaceship.accelerate_back()
-            if is_key_pressed[pygame.K_END]:
+            '''
+            elif is_key_pressed[pygame.K_END]:
                 self.spaceship.brake()
+               
+            elif is_key_pressed[pygame.K_UP]:
+                self.spaceship.accelerate_forward()
+            elif is_key_pressed[pygame.K_DOWN]:
+                self.spaceship.accelerate_back()
+'''
+
 
     def _get_game_objects(self):
         game_objects = [*self.asteroids, *self.bullets]

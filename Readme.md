@@ -2,6 +2,9 @@
 - Anadir torpedos en bullet
 - Anadir somido r2d2
 - Crear escena inicio, batalla y fin
+- Anadir health / vidas / score (https://kidscancode.org/blog/tags/pygame/)
+- Anadir explosiones
+- Anadir power ups / health / topedos
 
 
 # Frameworks
