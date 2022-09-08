@@ -1,9 +1,13 @@
 # Roadmap
 - Anadir torpedos en bullet
 - Anadir somido r2d2
-- buscar el bug que hace que se cuelgue
+- Crear escena inicio, batalla y fin
 
 
+# Frameworks
+- Arcade
+  - https://realpython.com/arcade-python-game-framework/
+  - https://api.arcade.academy/en/latest/index.html
 
 # Tutoriales usados
 ## Advanced tutorial with folder structure and ship acceleration
@@ -49,3 +53,57 @@ Shooter Game tutorial con buenos assets
 
 ## TODO Tank battle tutorial with AI
 - https://kidscancode.org/blog/2018/04/godot3_tanks_part1/
+
+
+# Game Scenes
+- https://stackoverflow.com/questions/11105836/multiple-displays-in-pygame
+- Sample Games with scenes
+  - https://github.com/MyreMylar/christmas_adventure
+  - https://github.com/MyreMylar/tower_defence
+
+The better solution is probably to divide your game into scenes. Create multiple scenes so that each one represent one stage of the game, something like MenuScene, MainScene, BattleScene, GameOverScene, OptionScene etc.
+
+Then let each of those scenes handle input/drawing of that very part of the game.
+
+MenuScene handles drawing and input etc. of the game's menu
+MainScene handles drawing and input etc. of the running game
+BattleScene handles drawing and input etc. of whatever you do in run_ani
+In your mainloop, just pass control over to the current scene by implementing the methods draw(), handle_event(), and update().
+
+Some example code to get the idea:
+
+```python
+scenes = {'Main': MainScene(),
+          'Battle': BattleScene()} #etc
+
+scene = scenes['Main']
+
+class MainScene():
+  ...
+  def handle_event(self, event):
+    if event.type == KEYUP:
+      if event.key == K_a:
+        scene = scenes['Battle']
+  ...
+
+class BattleScene():
+  ...
+  def draw(self):
+    # draw your animation
+
+  def update(self):
+    # if animation is over:
+    scene = scenes['Main']
+
+...
+
+def main_game():
+  ending=False
+  While Not ending:
+      clock.tick(30)
+      for event in pygame.event.get():
+        scene.handle_event(event)
+        scene.update()
+        scene.draw()
+```        
+This is an easy way to cleanly seperate the game logic and allow context switching.

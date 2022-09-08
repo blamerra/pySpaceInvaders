@@ -69,4 +69,4 @@ class Spaceship(GameObject):
         bullet_velocity = self.direction * self.BULLET_SPEED + self.velocity
         bullet = Bullet(self.position, bullet_velocity, self.direction)
         self.create_bullet_callback(bullet)
-        self.laser_sound.play()
+        Utils.play_sound(self.laser_sound)

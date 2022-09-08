@@ -2,7 +2,9 @@ import random
 from pygame.image import load
 from pygame.mixer import Sound
 from pygame.math import Vector2
+from pygame import Color
 
+from settings import Settings
 
 class Utils:
     @staticmethod
@@ -19,6 +21,10 @@ class Utils:
     def load_sound(name, extension="wav"):
         path = f"assets/sounds/{name}.{extension}"
         return Sound(path)
+
+    @staticmethod
+    def play_sound(sound):
+        if Settings.SOUND_ON: sound.play()
 
     # Position functions
     @staticmethod
@@ -54,3 +60,12 @@ class Utils:
         speed = random.randint(min_speed, max_speed)
         angle = random.randrange(0, 360)
         return Vector2(speed, 0).rotate(angle)
+
+    @staticmethod
+    def print_text(surface, text, font, color=Color("tomato")):
+        text_surface = font.render(text, True, color)
+
+        rect = text_surface.get_rect()
+        rect.center = Vector2(surface.get_size()) / 2
+
+        surface.blit(text_surface, rect)

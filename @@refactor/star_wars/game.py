@@ -7,13 +7,8 @@ from classes.asteroid import Asteroid
 
 
 class StarWars:
-    @staticmethod
-    def _init_pygame():
-        pygame.init()
-        pygame.display.set_caption("Star Wars")
-
     def _create_asteroids(self):
-        # Aseguramos que hay un minimo de de ditancia entre la nave y los asteroides
+        # Aseguramos que hay un minimo de de dsitancia entre la nave y los asteroides
         for _ in range(Settings.ASTEROID_NUMBER):
             while True:
                 position = Utils.get_random_position(self.screen)
@@ -23,7 +18,8 @@ class StarWars:
             self.asteroids.append(Asteroid(position, self.asteroids.append))
 
     def __init__(self):
-        self._init_pygame()
+        pygame.init()
+        pygame.display.set_caption("Star Wars")
         self.screen = pygame.display.set_mode((Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT))
         pygame.display.set_icon(Utils.load_sprite("icon", False))
 
@@ -40,6 +36,9 @@ class StarWars:
 
         self.asteroids = []
         self._create_asteroids()
+
+        self.font = pygame.font.Font(None, 64)
+        self.message = ""
 
     def run(self):
         while True:
@@ -83,22 +82,20 @@ class StarWars:
 
         return game_objects
 
-    def _process_game_logic(self):
-        for game_object in self._get_game_objects():
-            game_object.move(self.screen)
-
+    def _process_game_logic_spaceship(self):
         if self.spaceship:
             for asteroid in self.asteroids:
                 if asteroid.collides_with(self.spaceship):
                     self.spaceship = None
+                    self.message = "You lost!"
                     break
 
+    def _process_game_logic_bullet(self):
         # Bullet logic
-        '''
-        Notice that instead  of using the original list, self.bullets, 
-        you create a copy of it using self.bullets[:] 
-        That’s because removing elements from a list while iterating over it can cause errors.
-        '''
+        # Notice that instead  of using the original list, self.bullets,
+        # you create a copy of it using self.bullets[:]
+        # That’s because removing elements from a list while iterating over it can cause errors.
+
         # control si la bala sale de la pantalla
         for bullet in self.bullets[:]:
             if not self.screen.get_rect().collidepoint(bullet.position):
@@ -113,11 +110,24 @@ class StarWars:
                     asteroid.split()
                     break
 
+    def _process_game_logic(self):
+        for game_object in self._get_game_objects():
+            game_object.move(self.screen)
+
+        self._process_game_logic_spaceship()
+        self._process_game_logic_bullet()
+
+        if not self.asteroids and self.spaceship:
+            self.message = "You won!"
+
     def _draw(self):
         self.screen.blit(self.background, (0, 0))
 
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
+
+        if self.message:
+            Utils.print_text(self.screen, self.message, self.font)
 
         pygame.display.flip()
         self.clock.tick(Settings.FPS)
