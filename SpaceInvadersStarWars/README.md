@@ -3,14 +3,21 @@
 - Anadir somido r2d2
 - Crear escena inicio, batalla y fin
 - Anadir health / vidas / score (https://kidscancode.org/blog/tags/pygame/)
-- Anadir explosiones
+- Anadir explosiones con una animacion usando un spritesheet
 - Anadir power ups / health / topedos
 
+
+# SpriteSheet
+- https://www.pygame.org/wiki/Spritesheet
+- https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/
+- https://www.mikekale.com/modular-sprite-sheets-pygame/
+  - https://github.com/kaledev/FishExample
 
 # Frameworks
 - Arcade
   - https://realpython.com/arcade-python-game-framework/
   - https://api.arcade.academy/en/latest/index.html
+
 
 # Tutoriales usados
 ## Advanced tutorial with folder structure and ship acceleration

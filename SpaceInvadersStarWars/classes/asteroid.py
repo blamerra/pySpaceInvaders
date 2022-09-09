@@ -15,6 +15,8 @@ class Asteroid(GameObject):
             2: 0.75,
             1: 0.5,
         }
+        self.sound_explosion = Utils.load_sound("explosion")
+
         scale = size_to_scale[size]
         sprite = rotozoom(Utils.load_sprite("asteroid"), 0, scale)
 
@@ -33,6 +35,7 @@ class Asteroid(GameObject):
         surface.blit(rotated_surface, blit_position)
 
     def split(self):
+        Utils.play_sound(self.sound_explosion)
         if self.size > 1:
             for _ in range(2):
                 asteroid = Asteroid(

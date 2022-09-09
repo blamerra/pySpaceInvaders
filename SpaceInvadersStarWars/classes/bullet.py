@@ -19,6 +19,10 @@ class Bullet(GameObject):
         self.direction = Vector2(direction)
         self.velocity = Vector2(velocity)
 
+        self.sound_laser = Utils.load_sound("bullet_laser")
+        self.sound_laser.set_volume(0.5)
+        Utils.play_sound(self.sound_laser)
+
     def move(self, surface):
         self.position = self.position + self.direction * self.SPEED
 
