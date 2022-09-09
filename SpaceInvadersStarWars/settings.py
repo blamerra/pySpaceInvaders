@@ -4,7 +4,7 @@ import pygame
 class Settings:
     """A class to store all settings."""
     ASTEROID_NUMBER = 1
-    ASTEROID_MIN_DISTANCE = 250
+    ASTEROID_MIN_DISTANCE = 350
     ASTEROID_MIN_VELOCITY = 1
     ASTEROID_MAX_VELOCITY = 3
 

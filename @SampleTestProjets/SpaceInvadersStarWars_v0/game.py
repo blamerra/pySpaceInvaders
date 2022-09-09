@@ -9,7 +9,6 @@ from sprites.frontend import Frontend
 from sprites.meteor import Meteor
 from sprites.player import Player
 
-
 class Game:
     """Overall class to manage game assets and behavior."""
     SETTINGS = Settings()

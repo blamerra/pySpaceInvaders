@@ -8,16 +8,19 @@ from .game_object import GameObject
 from .utils import Utils
 from settings import Settings
 
+
 class Spaceship(GameObject):
     STOP = Vector2(0, 0)
-    ACCELERATION = 0.3
+    ACCELERATION = 0.2
     VELOCITY_MAX = 10
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
     BULLET_SPEED = 3
     RANDOM_SOUNDS_NUMBER = 6
+
     def __init__(self, position, create_bullet_callback):
         self.create_bullet_callback = create_bullet_callback
+        self.is_alive = True
 
         self.random_sounds = []
 
@@ -25,8 +28,10 @@ class Spaceship(GameObject):
         self.sprite_spaceship = Utils.load_sprite("spaceship")
         self.sprite_spaceship_forward = Utils.load_sprite("spaceship_forward")
         self.sprite_spaceship_backward = Utils.load_sprite("spaceship_backward")
+        self.sprite_spaceship_explosion = Utils.load_sprite("spaceship_explosion")
         super().__init__(position, self.sprite_spaceship, Vector2(0))
 
+        self.velocity = Vector2(0, -1)
         self.clock = Clock()
         self.random_sounds_time_elapsed = 0
         self.RANDOM_SOUNDS_DELAY = Settings.SPACESHIP_RANDOM_SOUND_DELAY
@@ -40,13 +45,17 @@ class Spaceship(GameObject):
         self.sound_accelerate_channel = pygame.mixer.find_channel()
         self.sound_accelerate_backward = Utils.load_sound("starship_accelerate_backward", "wav")
         self.sound_accelerate_brake = Utils.load_sound("starship_accelerate_brake", "wav")
-        #self.sound_accelerate_brake.set_volume(0.3)
+        # self.sound_accelerate_brake.set_volume(0.3)
+
+        self.sound_kill = Utils.load_sound("explosion")
 
         self.acceleration_time_elapsed = 0
         self.ACCELERATION_DELAY = 500
+
     def draw(self, surface):
-        self._reset_max_velocity()
-        self._play_random_sound()
+        if self.is_alive:
+            self._reset_max_velocity()
+            self._play_random_sound()
         rotated_surface, blit_position = self.rotate_surface()
         surface.blit(rotated_surface, blit_position)
 
@@ -104,4 +113,9 @@ class Spaceship(GameObject):
         bullet = Bullet(self.position, bullet_velocity, self.direction)
         self.create_bullet_callback(bullet)
 
-
+    def die(self):
+        if self.is_alive:
+            Utils.play_sound(self.sound_kill)
+            self.velocity = self.STOP
+            self.sprite = self.sprite_spaceship_explosion
+            self.is_alive = False

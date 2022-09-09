@@ -1,4 +1,5 @@
 import random
+import pygame
 from pygame.image import load
 from pygame.mixer import Sound
 from pygame.math import Vector2
@@ -21,6 +22,15 @@ class Utils:
     def load_sound(name, extension="wav"):
         path = f"assets/sounds/{name}.{extension}"
         return Sound(path)
+
+    @staticmethod
+    def load_background_sound(filename):
+        path = f"assets/sounds/{filename}"
+        pygame.mixer.music.unload()
+        #pygame.mixer.music.fadeout(200)
+        pygame.mixer.music.load(path)
+        # pygame.mixer.music.set_volume(self.SETTINGS.audio_background_volume)
+        pygame.mixer.music.play(-1)
 
     @staticmethod
     def play_sound(sound, channel=None):
@@ -55,10 +65,11 @@ class Utils:
         )
 
     @staticmethod
-    def get_center_position(surface):
+    # x, y valores a partir del centro que queramos mover
+    def get_center_position(surface, x=0, y=0):
         return Vector2(
-            surface.get_width()/2,
-            surface.get_height()/2
+            surface.get_width()/2 + x,
+            surface.get_height()/2 + y
         )
 
     @staticmethod

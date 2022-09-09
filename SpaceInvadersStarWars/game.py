@@ -8,7 +8,7 @@ from classes.asteroid import Asteroid
 
 class StarWars:
     def _create_asteroids(self):
-        # Aseguramos que hay un minimo de de dsitancia entre la nave y los asteroides
+        # Aseguramos que hay un minimo de de distancia entre la nave y los asteroides
         for _ in range(Settings.ASTEROID_NUMBER):
             while True:
                 position = Utils.get_random_position(self.screen)
@@ -27,10 +27,14 @@ class StarWars:
         self.background = rotozoom(Utils.load_sprite("background"), 0, 2)
         self.clock = pygame.time.Clock()
 
+        # Music
+        Utils.load_background_sound("background_sw_theme_song.mp3")
+
+        # Sprites
         self.bullets = []
 
         self.spaceship = Spaceship(
-            Utils.get_center_position(self.screen),
+            Utils.get_center_position(self.screen, 0, 150),
             self.bullets.append
         )
 
@@ -62,6 +66,12 @@ class StarWars:
                     self.spaceship.accelerate_back()
                 elif event.key == pygame.K_END:
                     self.spaceship.brake()
+
+            # custom timer events
+            elif event.type == pygame.USEREVENT+1:
+                # spaceship kill
+                self.spaceship = None
+
         # Gestion teclas pulsadas
         is_key_pressed = pygame.key.get_pressed()
         if self.spaceship:
@@ -84,7 +94,6 @@ class StarWars:
 
     def _get_game_objects(self):
         game_objects = [*self.asteroids, *self.bullets]
-
         if self.spaceship:
             game_objects.append(self.spaceship)
 
@@ -94,8 +103,11 @@ class StarWars:
         if self.spaceship:
             for asteroid in self.asteroids:
                 if asteroid.collides_with(self.spaceship):
-                    self.spaceship = None
+                    self.spaceship.die()
+                    # self.spaceship = None
                     self.message = "You lost!"
+                    Utils.load_background_sound("background_sw_imperial_march.mp3")
+                    pygame.time.set_timer(pygame.USEREVENT + 1, 1000)
                     break
 
     def _process_game_logic_bullet(self):
@@ -126,7 +138,10 @@ class StarWars:
         self._process_game_logic_bullet()
 
         if not self.asteroids and self.spaceship:
+            # TODO arreglar que no se recargue todo el rato con una variable
+            #  game_status
             self.message = "You won!"
+            Utils.load_background_sound("background_sw_rebel_theme.mp3")
 
     def _draw(self):
         self.screen.blit(self.background, (0, 0))
