@@ -55,24 +55,30 @@ class Spaceship(GameObject):
     def draw(self, surface):
         if self.is_alive:
             self._reset_max_velocity()
+            self._reset_animation_motors()
             self._play_random_sound()
+
         rotated_surface, blit_position = self.rotate_surface()
         surface.blit(rotated_surface, blit_position)
 
     def _play_random_sound(self):
-        # the following method returns the time since its last call in milliseconds
-        # it is good practice to store it in a variable called 'dt'
-        dt = self.clock.tick()
-        self.random_sounds_time_elapsed += dt
-        if self.random_sounds_time_elapsed > self.RANDOM_SOUNDS_DELAY:
-            self.random_sounds[random.randrange(0, self.RANDOM_SOUNDS_NUMBER)].play()
-            self.random_sounds_time_elapsed = 0  # reset it to 0 so you can count again
+        if self.is_alive:
+            # the following method returns the time since its last call in milliseconds
+            # it is good practice to store it in a variable called 'dt'
+            dt = self.clock.tick()
+            self.random_sounds_time_elapsed += dt
+            if self.random_sounds_time_elapsed > self.RANDOM_SOUNDS_DELAY:
+                self.random_sounds[random.randrange(0, self.RANDOM_SOUNDS_NUMBER)].play()
+                self.random_sounds_time_elapsed = 0  # reset it to 0 so you can count again
 
-        # Reset motor image after some time without acceleration
-        self.acceleration_time_elapsed += dt
-        if self.acceleration_time_elapsed > self.ACCELERATION_DELAY:
-            self.sprite = self.sprite_spaceship
-            self.acceleration_time_elapsed = 0
+    def _reset_animation_motors(self):
+        if self.is_alive:
+            # Reset motor image after some time without acceleration
+            dt = self.clock.tick()
+            self.acceleration_time_elapsed += dt
+            if self.acceleration_time_elapsed > self.ACCELERATION_DELAY:
+                self.sprite = self.sprite_spaceship
+                self.acceleration_time_elapsed = 0
 
     # hay que hacer este reset ya que a veces se pasa por poco de la velocidad maxima/minima
     def _reset_max_velocity(self):
@@ -86,16 +92,18 @@ class Spaceship(GameObject):
             self.velocity[1] = -self.VELOCITY_MAX
 
     def accelerate_forward(self):
-        if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX \
-                and self.VELOCITY_MAX >= self.velocity[1] >= -self.VELOCITY_MAX:
-            self.velocity += self.direction * self.ACCELERATION
-            Utils.play_sound(self.sound_accelerate, self.sound_accelerate_channel)
-            self.sprite = self.sprite_spaceship_forward
+        if self.is_alive:
+            if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX \
+                    and self.VELOCITY_MAX >= self.velocity[1] >= -self.VELOCITY_MAX:
+                self.velocity += self.direction * self.ACCELERATION
+                Utils.play_sound(self.sound_accelerate, self.sound_accelerate_channel)
+                self.sprite = self.sprite_spaceship_forward
 
     def accelerate_back(self):
-        self.velocity = self.velocity * 0.8
-        Utils.play_sound(self.sound_accelerate_backward, self.sound_accelerate_channel)
-        self.sprite = self.sprite_spaceship_backward
+        if self.is_alive:
+            self.velocity = self.velocity * 0.8
+            Utils.play_sound(self.sound_accelerate_backward, self.sound_accelerate_channel)
+            self.sprite = self.sprite_spaceship_backward
 
         '''
         if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX 
@@ -109,9 +117,10 @@ class Spaceship(GameObject):
         self.velocity = self.velocity * 0.3
 
     def shoot(self):
-        bullet_velocity = self.direction * self.BULLET_SPEED + self.velocity
-        bullet = Bullet(self.position, bullet_velocity, self.direction)
-        self.create_bullet_callback(bullet)
+        if self.is_alive:
+            bullet_velocity = self.direction * self.BULLET_SPEED + self.velocity
+            bullet = Bullet(self.position, bullet_velocity, self.direction)
+            self.create_bullet_callback(bullet)
 
     def die(self):
         if self.is_alive:
@@ -119,3 +128,7 @@ class Spaceship(GameObject):
             self.velocity = self.STOP
             self.sprite = self.sprite_spaceship_explosion
             self.is_alive = False
+
+    def rotate(self, clockwise=True):
+        if self.is_alive:
+            super().rotate(clockwise)

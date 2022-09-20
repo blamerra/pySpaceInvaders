@@ -27,9 +27,7 @@ class Utils:
     def load_background_sound(filename):
         path = f"assets/sounds/{filename}"
         pygame.mixer.music.unload()
-        #pygame.mixer.music.fadeout(200)
         pygame.mixer.music.load(path)
-        # pygame.mixer.music.set_volume(self.SETTINGS.audio_background_volume)
         pygame.mixer.music.play(-1)
 
     @staticmethod
@@ -38,7 +36,6 @@ class Utils:
             if channel:
                 channel.stop
                 channel.play(sound)
-                print("chanel")
             else:
                 sound.play()
 
@@ -79,7 +76,7 @@ class Utils:
         return Vector2(speed, 0).rotate(angle)
 
     @staticmethod
-    def print_text(surface, text, font, color=Color("tomato")):
+    def print_text(surface, text, font, color=Color("gold1")):
         text_surface = font.render(text, True, color)
 
         rect = text_surface.get_rect()

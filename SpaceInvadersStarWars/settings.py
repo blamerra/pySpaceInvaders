@@ -3,15 +3,15 @@ import pygame
 
 class Settings:
     """A class to store all settings."""
-    ASTEROID_NUMBER = 1
+    ASTEROID_NUMBER = 20
     ASTEROID_MIN_DISTANCE = 350
     ASTEROID_MIN_VELOCITY = 1
     ASTEROID_MAX_VELOCITY = 3
 
     FPS = 60
 
-    SCREEN_WIDTH = 800
-    SCREEN_HEIGHT = 600
+    SCREEN_WIDTH = 1600
+    SCREEN_HEIGHT = 1200
 
     SOUND_ON = True
     SPACESHIP_RANDOM_SOUND_DELAY = 9000 # miliseconds
