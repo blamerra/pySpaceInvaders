@@ -4,6 +4,7 @@ from settings import Settings
 from classes.utils import Utils
 from classes.spaceship import Spaceship
 from classes.asteroid import Asteroid
+from classes.background import Background
 
 
 class StarWars:
@@ -41,7 +42,7 @@ class StarWars:
 
         # Sprites
         self.bullets = []
-
+        self.background_scroll = Background()
         self.spaceship = Spaceship(
             Utils.get_center_position(self.screen, 0, 150),
             self.bullets.append
