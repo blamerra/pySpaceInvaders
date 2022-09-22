@@ -7,9 +7,11 @@ from classes.asteroid import Asteroid
 
 
 class StarWars:
-    STATUS_GAME_READY = 1
-    STATUS_GAME_OVER = 2
-    STATUS_GAME_WIN = 3
+    GAME_STATUS = {
+        'READY': 1,
+        'GAME_OVER': 2,
+        'GAME_WIN': 3
+    }
 
     def _create_asteroids(self):
         # Aseguramos que hay un minimo de de distancia entre la nave y los asteroides
@@ -25,7 +27,7 @@ class StarWars:
         pygame.init()
 
         # Control variables
-        self.status = self.STATUS_GAME_READY
+        self.status = self.GAME_STATUS['READY']
         self.clock = pygame.time.Clock()
 
         # Display & background
@@ -50,7 +52,6 @@ class StarWars:
 
         self.font = pygame.font.Font(None, 64)
         self.message = ""
-
 
     def run(self):
         while True:
@@ -134,15 +135,14 @@ class StarWars:
                     break
 
     def _process_game_status(self):
-        if self.status == self.STATUS_GAME_READY:
+        if self.status == self.GAME_STATUS['READY']:
             if not self.spaceship.is_alive:
-                self.status = self.STATUS_GAME_OVER
+                self.status = self.GAME_STATUS['GAME_OVER']
                 self.message = "G A M E  O V E R"
                 Utils.load_background_sound("background_sw_imperial_march.mp3")
 
             if not self.asteroids and self.spaceship.is_alive:
-                print("win")
-                self.status = self.STATUS_GAME_WIN
+                self.status = self.GAME_STATUS['GAME_WIN']
                 self.message = "You won!"
                 Utils.load_background_sound("background_sw_rebel_theme.mp3")
 
@@ -154,7 +154,6 @@ class StarWars:
         self._process_game_logic_bullet()
 
         self._process_game_status()
-
 
     def _draw(self):
         self.screen.blit(self.background, (0, 0))

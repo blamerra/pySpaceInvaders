@@ -1,7 +1,8 @@
 # Roadmap
+- fondo en movimiento
 - anadir minas
-- anadir escudos
 - Anadir torpedos en bullet
+- anadir escudos
 - Anadir somido r2d2
 - Crear escena inicio, batalla y fin
 - Anadir health / vidas / score (https://kidscancode.org/blog/tags/pygame/)
