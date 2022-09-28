@@ -26,9 +26,14 @@
 # Tutoriales usados
 ## Advanced tutorial with folder structure and ship acceleration
 - https://realpython.com/asteroids-game-python/
-- 
+
+## Background en movimiento
+- PyGame Beginner Tutorial in Python - Infinite Scrolling Background
+  - https://github.com/russs123/pygame_tutorials/tree/main/Infinite_Background
+  - https://www.youtube.com/watch?v=ARt6DLP38-Y
+
 ## Assets and original game
- https://github.com/attreyabhatt/Space-Invaders-Pygame
+- https://github.com/attreyabhatt/Space-Invaders-Pygame
 
 ## Tutorial Mundo Python
 https://www.youtube.com/watch?v=MY9Jbri3wnE

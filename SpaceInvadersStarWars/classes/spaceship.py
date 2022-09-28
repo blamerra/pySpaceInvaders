@@ -96,13 +96,13 @@ class Spaceship(GameObject):
             if self.VELOCITY_MAX >= self.velocity[0] >= -self.VELOCITY_MAX \
                     and self.VELOCITY_MAX >= self.velocity[1] >= -self.VELOCITY_MAX:
                 self.velocity += self.direction * self.ACCELERATION
-                Utils.play_sound(self.sound_accelerate, self.sound_accelerate_channel)
+                Utils.play_sound(self.sound_accelerate, 1, self.sound_accelerate_channel)
                 self.sprite = self.sprite_spaceship_forward
 
     def accelerate_back(self):
         if self.is_alive:
             self.velocity = self.velocity * 0.8
-            Utils.play_sound(self.sound_accelerate_backward, self.sound_accelerate_channel)
+            Utils.play_sound(self.sound_accelerate_backward, 1, self.sound_accelerate_channel)
             self.sprite = self.sprite_spaceship_backward
 
         '''
@@ -113,7 +113,7 @@ class Spaceship(GameObject):
         '''
 
     def brake(self):
-        Utils.play_sound(self.sound_accelerate_brake, self.sound_accelerate_channel)
+        Utils.play_sound(self.sound_accelerate_brake, 1, self.sound_accelerate_channel)
         self.velocity = self.velocity * 0.3
 
     def shoot(self):

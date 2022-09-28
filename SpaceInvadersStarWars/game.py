@@ -1,4 +1,5 @@
 import pygame
+import math
 from pygame.transform import rotozoom
 from settings import Settings
 from classes.utils import Utils
@@ -35,14 +36,13 @@ class StarWars:
         pygame.display.set_caption("Star Wars")
         self.screen = pygame.display.set_mode((Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT))
         pygame.display.set_icon(Utils.load_sprite("icon", False))
-        self.background = rotozoom(Utils.load_sprite("background"), 0, 2)
 
         # Music
-        Utils.load_background_sound("background_sw_theme_song.mp3")
+        Utils.load_background_sound("background_sw_theme_song.mp3", 0.3)
 
         # Sprites
+        self.background_scroll = Background(Settings.BACKGROUND_VELOCITY, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
         self.bullets = []
-        self.background_scroll = Background()
         self.spaceship = Spaceship(
             Utils.get_center_position(self.screen, 0, 150),
             self.bullets.append
@@ -102,9 +102,16 @@ class StarWars:
 '''
 
     def _get_game_objects(self):
-        game_objects = [*self.asteroids, *self.bullets]
-        if self.spaceship:
-            game_objects.append(self.spaceship)
+        game_objects = [
+            self.background_scroll,
+            self.spaceship,
+            *self.asteroids,
+            *self.bullets
+        ]
+
+
+        #if self.spaceship:
+        #    game_objects.append(self.spaceship)
 
         return game_objects
 
@@ -157,8 +164,20 @@ class StarWars:
         self._process_game_status()
 
     def _draw(self):
-        self.screen.blit(self.background, (0, 0))
+        # self.screen.blit(self.background, (0, 0))
 
+        # draw scrolling background
+        '''
+        for i in range(0, self.bg_tiles):
+            self.screen.blit(self.background, (0, -i * self.bg_height + self.bg_scroll))
+
+        # scroll background
+        self.bg_scroll += 0.3
+
+        # reset scroll
+        if abs(self.bg_scroll) > self.bg_height:
+            self.bg_scroll = 0
+'''
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 

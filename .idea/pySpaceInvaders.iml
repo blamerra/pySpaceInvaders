@@ -11,6 +11,7 @@
     <option name="namespacePackageFolders">
       <list>
         <option value="$MODULE_DIR$/@SampleTestProjets" />
+        <option value="$MODULE_DIR$/SpaceInvadersStarWars" />
       </list>
     </option>
   </component>

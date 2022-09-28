@@ -7,6 +7,7 @@ from pygame import Color
 
 from settings import Settings
 
+
 class Utils:
     @staticmethod
     def load_sprite(name, with_alpha=True):
@@ -24,19 +25,23 @@ class Utils:
         return Sound(path)
 
     @staticmethod
-    def load_background_sound(filename):
-        path = f"assets/sounds/{filename}"
-        pygame.mixer.music.unload()
-        pygame.mixer.music.load(path)
-        pygame.mixer.music.play(-1)
+    def load_background_sound(filename, volume=1):
+        if Settings.SOUND_ON:
+            path = f"assets/sounds/{filename}"
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load(path)
+            pygame.mixer.music.set_volume(volume)
+            pygame.mixer.music.play(-1)
 
     @staticmethod
-    def play_sound(sound, channel=None):
+    def play_sound(sound, volume=1, channel=None):
         if Settings.SOUND_ON:
             if channel:
                 channel.stop
+                channel.set_volume(volume)
                 channel.play(sound)
             else:
+                sound.set_volume(volume)
                 sound.play()
 
     # Position functions
@@ -65,8 +70,8 @@ class Utils:
     # x, y valores a partir del centro que queramos mover
     def get_center_position(surface, x=0, y=0):
         return Vector2(
-            surface.get_width()/2 + x,
-            surface.get_height()/2 + y
+            surface.get_width() / 2 + x,
+            surface.get_height() / 2 + y
         )
 
     @staticmethod

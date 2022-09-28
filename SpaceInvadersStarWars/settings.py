@@ -13,8 +13,12 @@ class Settings:
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
 
+    BACKGROUND_VELOCITY = (0, 0.3)
+
     SOUND_ON = True
     SPACESHIP_RANDOM_SOUND_DELAY = 9000 # miliseconds
+
+
 
     '''
     def __init__(self):
