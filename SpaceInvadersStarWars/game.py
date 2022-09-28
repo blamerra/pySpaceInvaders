@@ -3,10 +3,10 @@ import math
 from pygame.transform import rotozoom
 from settings import Settings
 from classes.utils import Utils
-from classes.spaceship import Spaceship
 from classes.asteroid import Asteroid
 from classes.background import Background
-
+from classes.explosion import Explosion
+from classes.spaceship import Spaceship
 
 class StarWars:
     GAME_STATUS = {
@@ -50,6 +50,8 @@ class StarWars:
 
         self.asteroids = []
         self._create_asteroids()
+
+        self.explosions = []
 
         self.font = pygame.font.Font(None, 64)
         self.message = ""
@@ -106,7 +108,8 @@ class StarWars:
             self.background_scroll,
             self.spaceship,
             *self.asteroids,
-            *self.bullets
+            *self.bullets,
+            *self.explosions
         ]
 
 
@@ -116,9 +119,12 @@ class StarWars:
         return game_objects
 
     def _process_game_logic_spaceship(self):
-        if self.spaceship:
+        if self.spaceship.is_alive:
             for asteroid in self.asteroids:
                 if asteroid.collides_with(self.spaceship):
+                    # se multiplica la escala por 0.75 ya que la explosion tiene 80px en lugar de 64
+                    explosion = Explosion(self.spaceship.position, 0.75, self.explosions.remove)
+                    self.explosions.append(explosion)
                     self.spaceship.die()
                     break
 
@@ -140,6 +146,10 @@ class StarWars:
                     self.asteroids.remove(asteroid)
                     self.bullets.remove(bullet)
                     asteroid.split()
+
+                    # se multiplica la escala por 0.75 ya que la explosion tiene 80px en lugar de 64
+                    explosion = Explosion(asteroid.position, asteroid.scale * 0.75, self.explosions.remove)
+                    self.explosions.append(explosion)
                     break
 
     def _process_game_status(self):

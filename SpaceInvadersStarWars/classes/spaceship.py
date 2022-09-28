@@ -29,6 +29,7 @@ class Spaceship(GameObject):
         self.sprite_spaceship_forward = Utils.load_sprite("spaceship_forward")
         self.sprite_spaceship_backward = Utils.load_sprite("spaceship_backward")
         self.sprite_spaceship_explosion = Utils.load_sprite("spaceship_explosion")
+        self.sprite_spaceship_die = Utils.load_sprite("spaceship_die")
         super().__init__(position, self.sprite_spaceship, Vector2(0))
 
         self.velocity = Vector2(0, -1)
@@ -124,9 +125,9 @@ class Spaceship(GameObject):
 
     def die(self):
         if self.is_alive:
-            Utils.play_sound(self.sound_kill)
+            #Utils.play_sound(self.sound_kill)
             self.velocity = self.STOP
-            self.sprite = self.sprite_spaceship_explosion
+            self.sprite = self.sprite_spaceship_die
             self.is_alive = False
 
     def rotate(self, clockwise=True):

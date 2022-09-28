@@ -1,13 +1,16 @@
 # Roadmap
-- fondo en movimiento
+- Anadir explosiones con una animacion usando un spritesheet
+  - https://www.youtube.com/watch?v=d06aVDzOfV8&list=PLjcN1EyupaQmZw8C-q6a4Zekidxf8SUj3
+- - Anadir health / vidas / score (https://kidscancode.org/blog/tags/pygame/)
 - anadir minas
 - Anadir torpedos en bullet
 - anadir escudos
+  - https://kidscancode.org/blog/2016/09/pygame_shmup_part_9/
 - Anadir somido r2d2
 - Crear escena inicio, batalla y fin
-- Anadir health / vidas / score (https://kidscancode.org/blog/tags/pygame/)
-- Anadir explosiones con una animacion usando un spritesheet
-- Anadir power ups / health / topedos
+
+- Anadir barra aceleracion
+- Anadir power ups / health / torpedos
 
 
 

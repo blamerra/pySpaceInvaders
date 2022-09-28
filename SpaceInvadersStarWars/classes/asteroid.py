@@ -17,8 +17,8 @@ class Asteroid(GameObject):
         }
         self.sound_explosion = Utils.load_sound("explosion")
 
-        scale = size_to_scale[size]
-        sprite = rotozoom(Utils.load_sprite("asteroid"), 0, scale)
+        self.scale = size_to_scale[size]
+        sprite = rotozoom(Utils.load_sprite("asteroid"), 0, self.scale)
 
         super().__init__(
             position,
