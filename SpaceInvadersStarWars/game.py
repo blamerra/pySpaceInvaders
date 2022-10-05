@@ -8,6 +8,7 @@ from classes.background import Background
 from classes.explosion import Explosion
 from classes.spaceship import Spaceship
 from classes.score import Score
+from classes.render_text import RenderText
 
 class StarWars:
     GAME_STATUS = {
@@ -15,6 +16,8 @@ class StarWars:
         'GAME_OVER': 2,
         'GAME_WIN': 3
     }
+
+    score_points = 0
 
     def _create_asteroids(self):
         # Aseguramos que hay un minimo de de distancia entre la nave y los asteroides
@@ -56,6 +59,9 @@ class StarWars:
 
         self.font = pygame.font.Font(None, 64)
         self.message = ""
+
+        self.score_text = RenderText(
+            self.screen, 'score : 0', size=25, pos=[Settings.SCREEN_WIDTH-90, 10])
 
         self.score = Score(Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
 
@@ -109,7 +115,7 @@ class StarWars:
     def _get_game_objects(self):
         game_objects = [
             self.background_scroll,
-            self.score,
+            self.score_text,
             self.spaceship,
             *self.asteroids,
             *self.bullets,
@@ -156,7 +162,9 @@ class StarWars:
                     self.explosions.append(explosion)
 
                     # Score
-                    self.score.increase()
+                    self.score_points += 1
+                    self.score_text.print_text("score : "+str(self.score_points))
+                    #self.score.increase()
 
                     break
 
