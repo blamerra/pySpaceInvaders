@@ -7,6 +7,7 @@ from classes.asteroid import Asteroid
 from classes.background import Background
 from classes.explosion import Explosion
 from classes.spaceship import Spaceship
+from classes.score import Score
 
 class StarWars:
     GAME_STATUS = {
@@ -55,6 +56,8 @@ class StarWars:
 
         self.font = pygame.font.Font(None, 64)
         self.message = ""
+
+        self.score = Score(Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
 
     def run(self):
         while True:
@@ -106,6 +109,7 @@ class StarWars:
     def _get_game_objects(self):
         game_objects = [
             self.background_scroll,
+            self.score,
             self.spaceship,
             *self.asteroids,
             *self.bullets,
@@ -150,6 +154,10 @@ class StarWars:
                     # se multiplica la escala por 0.75 ya que la explosion tiene 80px en lugar de 64
                     explosion = Explosion(asteroid.position, asteroid.scale * 0.75, self.explosions.remove)
                     self.explosions.append(explosion)
+
+                    # Score
+                    self.score.increase()
+
                     break
 
     def _process_game_status(self):
@@ -174,25 +182,14 @@ class StarWars:
         self._process_game_status()
 
     def _draw(self):
-        # self.screen.blit(self.background, (0, 0))
 
-        # draw scrolling background
-        '''
-        for i in range(0, self.bg_tiles):
-            self.screen.blit(self.background, (0, -i * self.bg_height + self.bg_scroll))
-
-        # scroll background
-        self.bg_scroll += 0.3
-
-        # reset scroll
-        if abs(self.bg_scroll) > self.bg_height:
-            self.bg_scroll = 0
-'''
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
         if self.message:
             Utils.print_text(self.screen, self.message, self.font)
+        # Score
+        #  Utils.print_text(self.screen, "score : "+str(self.score), self.font)
 
         pygame.display.flip()
         self.clock.tick(Settings.FPS)

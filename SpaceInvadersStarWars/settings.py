@@ -15,7 +15,7 @@ class Settings:
 
     BACKGROUND_VELOCITY = (0, 0.3)
 
-    SOUND_ON = True
+    SOUND_ON = False
     SPACESHIP_RANDOM_SOUND_DELAY = 9000 # miliseconds
 
 
