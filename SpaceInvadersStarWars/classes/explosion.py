@@ -1,23 +1,22 @@
 from pygame.transform import rotozoom
 from .game_object import GameObject
 from .utils import Utils
-
+from pygame import Vector2
 
 class Explosion(GameObject):
     def __init__(self, position, scale=1, delete_explosion_callback=None):
         self.delete_explosion_callback = delete_explosion_callback
-        #num_images = 7
+        num_images = 7
         # se multiplica la escala por 0.75 ya que la explosion tiene 80px en lugar de 64
-        #scale_adjustment = 0.75
+        scale_adjustment = 0.75
 
-        num_images = 9
+        #num_images = 9
         # se multiplica la escala por 0.42 ya que la explosion tiene 150px en lugar de 64
-        scale_adjustment = 0.42
-        
+        #scale_adjustment = 0.42
+
         self.images = []
         for num in range(0, num_images):
-            #img = Utils.load_sprite(f"explosion0{num}")
-            img = Utils.load_sprite(f"regularExplosion0{num}")
+            img = Utils.load_sprite(f"explosion00\explosion0{num}")
             img = rotozoom(img, 0, scale * scale_adjustment)
             self.images.append(img)
 
@@ -47,6 +46,10 @@ class Explosion(GameObject):
         if self.index >= len(self.images) and self.counter >= explosion_speed:
             self.sprite = self.images[0]  # la ultima animacion esta en blanco
             self.delete_explosion_callback
+
+
+        #surface_size = Vector2(self.sprite.get_size())
+        #self.position = self.position - surface_size * 0.5
 
         super().draw(surface)
         # surface.blit(self.sprite, self.position)
