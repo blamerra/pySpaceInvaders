@@ -9,6 +9,7 @@ from classes.explosion import Explosion
 from classes.spaceship import Spaceship
 from classes.score import Score
 from classes.render_text import RenderText
+from classes.score import Score
 
 class StarWars:
     GAME_STATUS = {
@@ -60,10 +61,9 @@ class StarWars:
         self.font = pygame.font.Font(None, 64)
         self.message = ""
 
-        self.score_text = RenderText(
-            self.screen, 'score : 0', size=25, pos=[Settings.SCREEN_WIDTH-90, 10])
+        #self.score_text = RenderText( self.screen, 'score : 0', size=25, pos=[Settings.SCREEN_WIDTH-90, 10])
 
-        self.score = Score(Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
+        self.score = Score(self.screen, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
 
     def run(self):
         while True:
@@ -115,7 +115,7 @@ class StarWars:
     def _get_game_objects(self):
         game_objects = [
             self.background_scroll,
-            self.score_text,
+            self.score,
             self.spaceship,
             *self.asteroids,
             *self.bullets,
@@ -162,8 +162,8 @@ class StarWars:
                     self.explosions.append(explosion)
 
                     # Score
-                    self.score_points += 1
-                    self.score_text.print_text("score : "+str(self.score_points))
+                    self.score.increase()
+                    #self.score_text.print_text("score : "+str(self.score_points))
                     #self.score.increase()
 
                     break

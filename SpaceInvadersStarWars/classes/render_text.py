@@ -3,6 +3,7 @@
 
 import pygame
 
+
 class RenderText(pygame.sprite.Sprite):
     pos = None
     pos_rel = None
@@ -24,6 +25,9 @@ class RenderText(pygame.sprite.Sprite):
         pass
 
     def print_text(self, text):
+        self.text = text
+
+    def set_text(self, text):
         self.text = text
 
     def draw(self, surface):
