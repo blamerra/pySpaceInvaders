@@ -156,9 +156,7 @@ class StarWars:
                     self.asteroids.remove(asteroid)
                     self.bullets.remove(bullet)
                     asteroid.split()
-
-                    # se multiplica la escala por 0.75 ya que la explosion tiene 80px en lugar de 64
-                    explosion = Explosion(asteroid.position, asteroid.scale * 0.75, self.explosions.remove)
+                    explosion = Explosion(asteroid.position, asteroid.scale, self.explosions.remove)
                     self.explosions.append(explosion)
 
                     # Score
