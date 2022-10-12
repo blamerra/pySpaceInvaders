@@ -61,8 +61,6 @@ class StarWars:
         self.font = pygame.font.Font(None, 64)
         self.message = ""
 
-        #self.score_text = RenderText( self.screen, 'score : 0', size=25, pos=[Settings.SCREEN_WIDTH-90, 10])
-
         self.score = Score(self.screen, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT)
 
     def run(self):
@@ -115,11 +113,11 @@ class StarWars:
     def _get_game_objects(self):
         game_objects = [
             self.background_scroll,
-            self.score,
             self.spaceship,
             *self.asteroids,
             *self.bullets,
-            *self.explosions
+            *self.explosions,
+            self.score
         ]
 
 
